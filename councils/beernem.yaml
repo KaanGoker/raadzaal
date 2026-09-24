@@ -1,0 +1,97 @@
+# Written by `python -m raadzaal councils`; edit by hand only to add what the database lacks.
+municipality: beernem
+term: 2025-2030
+seats: 25
+source: Mandatendatabank via https://data.lblod.info/sparql, mandates running on 2026-09-24
+parties:
+- name: CD&V
+  seats: 12
+- name: N-VA
+  seats: 9
+- name: Vooruit
+  seats: 3
+- name: Groen
+  seats: 1
+mayor: Jos Sypré
+chair: Kris Vincke
+members:
+- name: Jos Sypré
+  party: CD&V
+  role: burgemeester
+- name: Kris Vincke
+  party: CD&V
+  role: voorzitter
+- name: Claudio Saelens
+  party: CD&V
+  role: schepen
+- name: Ruben Strobbe
+  party: CD&V
+  role: schepen
+- name: Vicky Verstringe
+  party: Vooruit
+  role: schepen
+- name: Patricia Waerniers
+  party: CD&V
+  role: schepen
+- name: Vicky Reynaert
+  party: Vooruit
+  role: schepen
+- name: William Brysse
+  party: N-VA
+  role: raadslid
+- name: Greet Claeys
+  party: CD&V
+  role: raadslid
+- name: Anja Coens
+  party: CD&V
+  role: raadslid
+- name: Arthur De Brabander
+  party: CD&V
+  role: raadslid
+- name: Martine De Roo
+  party: CD&V
+  role: raadslid
+- name: Piet De Rycke
+  party: CD&V
+  role: raadslid
+- name: Lien De Wispelaere
+  party: N-VA
+  role: raadslid
+- name: Gijs Degrande
+  party: N-VA
+  role: raadslid
+- name: Martine Deloof
+  party: Vooruit
+  role: raadslid
+- name: Nele Deslyper
+  party: Groen
+  role: raadslid
+- name: Branco François
+  party: N-VA
+  role: raadslid
+- name: Janne Martelez
+  party: CD&V
+  role: raadslid
+- name: Christine Stroobandt
+  party: N-VA
+  role: raadslid
+- name: Justine Van Hoecke
+  party: CD&V
+  role: raadslid
+- name: Barbara Vandenbrande
+  party: N-VA
+  role: raadslid
+- name: Lode Vanneste
+  party: N-VA
+  role: raadslid
+- name: Jef Vansteenhuyse
+  party: N-VA
+  role: raadslid
+- name: Elodie Wildemeersch
+  party: N-VA
+  role: raadslid
+former:
+- name: Jan Vanassche
+  party: Groen
+  from: '2024-12-01'
+  until: '2026-05-21'

@@ -1,0 +1,12 @@
+venv/
+/data/
+models/
+.env
+__pycache__/
+*.pyc
+*.wav
+*.m4a
+*.webm
+.pytest_cache/
+.cache/
+.stignore

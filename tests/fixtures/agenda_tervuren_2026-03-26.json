@@ -1,0 +1,471 @@
+{
+ "zitting": {
+  "z": "https://tervuren-echo.cipalschaubroeck.be/id/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f",
+  "start": "2026-03-26T20:00:00+01:00",
+  "location": "De Eik"
+ },
+ "rows": [
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "title": "Voorstel over het voormalig politiecommissariaat (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "vfor": "5",
+   "vagainst": "18",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "title": "Voorstel over het voormalig politiecommissariaat (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "vfor": "5",
+   "vagainst": "18",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "title": "Voorstel over het voormalig politiecommissariaat (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "vfor": "5",
+   "vagainst": "18",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "title": "Voorstel over de N3 (raadslid Van Roy)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "title": "Voorstel over sociale woningen op de site oude jongensschool Duisburg (raadslid Borghans)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "vfor": "9",
+   "vagainst": "18",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "title": "Voorstel over sociale woningen op de site oude jongensschool Duisburg (raadslid Borghans)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "vfor": "9",
+   "vagainst": "18",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "title": "Voorstel over sociale woningen op de site oude jongensschool Duisburg (raadslid Borghans)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "vfor": "9",
+   "vagainst": "18",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "title": "Niet-indiening van een projectaanvraag en niet-invoering van subsidies voor waterpreventieve maatregelen op privéterrein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "vfor": "18",
+   "vagainst": "5",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "title": "Niet-indiening van een projectaanvraag en niet-invoering van subsidies voor waterpreventieve maatregelen op privéterrein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "vfor": "18",
+   "vagainst": "5",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "title": "Niet-indiening van een projectaanvraag en niet-invoering van subsidies voor waterpreventieve maatregelen op privéterrein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "vfor": "18",
+   "vagainst": "5",
+   "vabst": "4"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "title": "Goedkeuring van de consolidatie van de leningen 2025 voor de financiering van de investeringen van het AGB Bexit, leningsovereenkomst en aflossingstabellen",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "title": "Goedkeuring van de consolidatie van de leningen 2025 voor de financiering van de investeringen van het AGB Bexit, leningsovereenkomst en aflossingstabellen",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "title": "Goedkeuring van de consolidatie van de leningen 2025 voor de financiering van de investeringen van het AGB Bexit, leningsovereenkomst en aflossingstabellen",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "title": "Goedkeuring van de consolidatie van de lening 2025 voor het dienstencentrum, leningsovereenkomst en aflossingstabel",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "title": "Goedkeuring van de consolidatie van de lening 2025 voor het dienstencentrum, leningsovereenkomst en aflossingstabel",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "title": "Goedkeuring van de consolidatie van de lening 2025 voor het dienstencentrum, leningsovereenkomst en aflossingstabel",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac3d2093-3bfb-462d-aac3-e3acc6aa66dc",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "27",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "title": "Aanpassing van het belastingreglement voor de inname van het openbaar domein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "vfor": "25",
+   "vagainst": "0",
+   "vabst": "2"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "title": "Aanpassing van het belastingreglement voor de inname van het openbaar domein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "vfor": "25",
+   "vagainst": "0",
+   "vabst": "2"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "title": "Aanpassing van het belastingreglement voor de inname van het openbaar domein",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/ac4c11f3-fa15-4e77-a487-7d79da0e7bc4",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/28e1783a-9e20-4ddf-a2a1-8b674301368b",
+   "vfor": "25",
+   "vagainst": "0",
+   "vabst": "2"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "title": "Goedkeuring van de notulen van de gemeenteraad van 26 februari 2026",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "title": "Goedkeuring van de notulen van de gemeenteraad van 26 februari 2026",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "title": "Goedkeuring van de notulen van de gemeenteraad van 26 februari 2026",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2e9d5113-c9c1-493b-bc13-1f810de0cdb3",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "title": "Mondelinge vraag over de uitrol van het nieuwe afvalbeheersysteem Diftar (raadslid D'Afters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "title": "Mondelinge vraag over de uitrol van het nieuwe afvalbeheersysteem Diftar (raadslid D'Afters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "title": "Mondelinge vraag over de uitrol van het nieuwe afvalbeheersysteem Diftar (raadslid D'Afters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/9b94ea2c-b35c-4bac-87e0-bbc48b962505"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "title": "Mondelinge vraag over de sociale correcties bij de afvalophaling op basis van gewicht (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "title": "Mondelinge vraag over de sociale correcties bij de afvalophaling op basis van gewicht (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "title": "Mondelinge vraag over de sociale correcties bij de afvalophaling op basis van gewicht (raadslid Peeters)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5adfc56a-5c9a-4173-b06d-751790aa0eaf",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2fabd3eb-0dc0-402c-a489-0032f761193e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "title": "Mondelinge vraag over stand van zaken fietspad N3 Vossem (raadslid Bert Dekelver-Vandenwaeyenberg)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "title": "Mondelinge vraag over stand van zaken fietspad N3 Vossem (raadslid Bert Dekelver-Vandenwaeyenberg)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "title": "Mondelinge vraag over stand van zaken fietspad N3 Vossem (raadslid Bert Dekelver-Vandenwaeyenberg)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/bb4a2da7-091f-4db0-bfd7-e7bd3ec1e5c5",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/f196f37c-f97a-4d61-a98d-63b2c68044ff"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "title": "Mondelinge vraag over de stand van zaken herbestemming oud politiegebouw (raadslid Kint)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "title": "Mondelinge vraag over de stand van zaken herbestemming oud politiegebouw (raadslid Kint)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/bijkomendeagenda/11ae79ba-626b-41bf-8332-c1a452b23418",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "title": "Mondelinge vraag over de stand van zaken herbestemming oud politiegebouw (raadslid Kint)",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/d4f6ade4-a9b5-44bf-994f-f060a47bb6d0",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7b4c0630-b13d-4893-9b5d-653480d5e25e"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de akteneming van het budget 2026 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de akteneming van het budget 2026 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de akteneming van het budget 2026 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de goedkeuring van het meerjarenplan 2026-2031 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de goedkeuring van het meerjarenplan 2026-2031 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "title": "Kennisname van de gemeenteraadsbeslissing van de gemeente Overijse over de goedkeuring van het meerjarenplan 2026-2031 van de kerkfabriek H. Maria-Magdalena Eizer",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2acda544-5b71-4ddd-bfbc-74d2eb9b2d29",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2d5e5278-c5f8-4dcb-919f-9a267b623d01"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "title": "Kennisname van de rapportering over het Lokaal Energie- en Klimaatpact 1.0 en 2.0 voor het jaar 2025",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agenda",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "title": "Kennisname van de rapportering over het Lokaal Energie- en Klimaatpact 1.0 en 2.0 voor het jaar 2025",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d"
+  },
+  {
+   "ap": "https://tervuren-echo.cipalschaubroeck.be/id/agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "title": "Kennisname van de rapportering over het Lokaal Energie- en Klimaatpact 1.0 en 2.0 voor het jaar 2025",
+   "public": "1",
+   "source": "https://tervuren-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/042973ec-7fd8-4125-b61e-c6007a1abc4f/notulen",
+   "beh": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/829e3a5e-a4f3-4bb0-9d52-8cc1fafd422a",
+   "after": "https://tervuren-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/0cd37c58-3784-43ce-be25-a7cbe946de7d"
+  }
+ ]
+}

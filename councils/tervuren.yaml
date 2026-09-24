@@ -1,0 +1,115 @@
+# Written by `python -m raadzaal councils`; edit by hand only to add what the database lacks.
+municipality: tervuren
+term: 2025-2030
+seats: 27
+source: Mandatendatabank via https://data.lblod.info/sparql, mandates running on 2026-09-24
+parties:
+- name: Voor Tervuren
+  seats: 11
+- name: N-VA
+  seats: 7
+- name: Groen+Vooruit
+  seats: 5
+- name: Tervuren Unie + Volt
+  seats: 4
+mayor: Thomas Geyns
+chair: Mario Van Rossum
+members:
+- name: Thomas Geyns
+  party: Voor Tervuren
+  role: burgemeester
+- name: Mario Van Rossum
+  party: Voor Tervuren
+  role: voorzitter
+- name: Bram Bartholomees
+  party: Voor Tervuren
+  role: schepen
+- name: Marc Charlier
+  party: N-VA
+  role: schepen
+- name: Sebastiaan Coudré
+  party: Voor Tervuren
+  role: schepen
+- name: Kristina Eyskens
+  party: Voor Tervuren
+  role: schepen
+- name: Jan Trappeniers
+  party: Voor Tervuren
+  role: schepen
+- name: Annemie Spaas
+  party: N-VA
+  role: schepen
+- name: Werner Aerts
+  party: N-VA
+  role: raadslid
+- name: Carine Borghans
+  party: Groen+Vooruit
+  role: raadslid
+- name: Ineke Casier
+  party: Voor Tervuren
+  role: raadslid
+- name: Tracey D'Afters
+  party: Tervuren Unie + Volt
+  role: raadslid
+- name: Bert Dekelver-Vandenwaeyenberg
+  party: Voor Tervuren
+  role: raadslid
+- name: Lies Eykens
+  party: N-VA
+  role: raadslid
+- name: Omer Graulus
+  party: N-VA
+  role: raadslid
+- name: Lut Kint
+  party: N-VA
+  role: raadslid
+- name: Serge Liesenborghs
+  party: Tervuren Unie + Volt
+  role: raadslid
+- name: Koen Maertens
+  party: Voor Tervuren
+  role: raadslid
+- name: Ralph Packet
+  party: N-VA
+  role: raadslid
+- name: Elmo Peeters
+  party: Groen+Vooruit
+  role: raadslid
+- name: Bram Peters
+  party: Groen+Vooruit
+  role: raadslid
+- name: Willy Roeykens
+  party: Voor Tervuren
+  role: raadslid
+- name: Olivier Thomas
+  party: Tervuren Unie + Volt
+  role: raadslid
+- name: Mark Van Roy
+  party: Groen+Vooruit
+  role: raadslid
+- name: Tiemen Verstappen
+  party: Groen+Vooruit
+  role: raadslid
+- name: Lionel de Beauffort
+  party: Voor Tervuren
+  role: raadslid
+- name: Geoffroy de Visscher
+  party: Tervuren Unie + Volt
+  role: raadslid
+former:
+- name: Dirk De Vos
+  party: N-VA
+  from: '2025-12-17'
+  until: '2026-04-30'
+- name: Joan Abatesi
+  party: Groen+Vooruit
+  from: '2025-10-22'
+  until: '2026-01-29'
+- name: Kathelijne Verboomen
+  party: Voor Tervuren
+  from: '2025-10-22'
+  until: '2026-01-29'
+- name: Sofie Lombaert
+  party: Groen+Vooruit
+  from: '2024-12-04'
+  until: '2026-01-29'

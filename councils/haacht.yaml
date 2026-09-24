@@ -1,0 +1,95 @@
+# Written by `python -m raadzaal councils`; edit by hand only to add what the database lacks.
+municipality: haacht
+term: 2025-2030
+seats: 25
+source: Mandatendatabank via https://data.lblod.info/sparql, mandates running on 2026-09-24
+parties:
+- name: Team 3150
+  seats: 9
+- name: Groen-CD&V
+  seats: 7
+- name: N-VA
+  seats: 5
+- name: Vooruit
+  seats: 3
+- name: Vlaams Belang
+  seats: 1
+mayor: Steven Swiggers
+chair: Annelotte Van Meldert
+members:
+- name: Steven Swiggers
+  party: Team 3150
+  role: burgemeester
+- name: Annelotte Van Meldert
+  party: Team 3150
+  role: voorzitter
+- name: Kristel Godyns
+  party: N-VA
+  role: schepen
+- name: Karin Jiroflée
+  party: Vooruit
+  role: schepen
+- name: Tom Van der Auwera
+  party: Team 3150
+  role: schepen
+- name: Frank Vannetelbosch
+  party: N-VA
+  role: schepen
+- name: Tim Timmermans
+  party: Team 3150
+  role: schepen
+- name: Jolien Beerens
+  party: Groen-CD&V
+  role: raadslid
+- name: Nico Bogaerts
+  party: Team 3150
+  role: raadslid
+- name: Annemie Buedts
+  party: Groen-CD&V
+  role: raadslid
+- name: Veva Daniels
+  party: Groen-CD&V
+  role: raadslid
+- name: Luc De Bie
+  party: Vooruit
+  role: raadslid
+- name: Bert Francois
+  party: N-VA
+  role: raadslid
+- name: Eddy Ghenne
+  party: Vlaams Belang
+  role: raadslid
+- name: Anne Labro
+  party: Team 3150
+  role: raadslid
+- name: Bernard Lemaitre
+  party: Groen-CD&V
+  role: raadslid
+- name: Brigitte Mouligneau
+  party: Groen-CD&V
+  role: raadslid
+- name: Annik Olbrechts
+  party: N-VA
+  role: raadslid
+- name: Marianne Ursi
+  party: Groen-CD&V
+  role: raadslid
+- name: Benny Van Goolen
+  party: Team 3150
+  role: raadslid
+- name: Wilfried Van Noten
+  party: Team 3150
+  role: raadslid
+- name: Dieter Vanbesien
+  party: Groen-CD&V
+  role: raadslid
+- name: Pascal Vandenhoudt
+  party: Team 3150
+  role: raadslid
+- name: Ine Vanhove
+  party: Vooruit
+  role: raadslid
+- name: Marleen Wouters
+  party: N-VA
+  role: raadslid
+former: []

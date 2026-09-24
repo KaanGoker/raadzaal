@@ -1,0 +1,320 @@
+{
+ "zitting": {
+  "z": "https://beernem-echo.cipalschaubroeck.be/id/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f",
+  "start": "2026-03-19T19:30:00+01:00",
+  "location": "de raadzaal"
+ },
+ "rows": [
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "title": "Belastingreglement inname openbaar domein - aanslagjaren 2026 - 2031",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "title": "Belastingreglement inname openbaar domein - aanslagjaren 2026 - 2031",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "title": "Belastingreglement inname openbaar domein - aanslagjaren 2026 - 2031",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "title": "Belastingreglement inname openbaar domein - aanslagjaren 2026 - 2031",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "title": "Uitbatingsovereenkomst/concessie cultuurcafé",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "title": "Uitbatingsovereenkomst/concessie cultuurcafé",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "title": "Uitbatingsovereenkomst/concessie cultuurcafé",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "title": "Samenwerkingsovereenkomst Blauwe Kruis",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8887deef-5dab-4e87-866a-70a3c08875f9",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "title": "Samenwerkingsovereenkomst Blauwe Kruis",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8887deef-5dab-4e87-866a-70a3c08875f9",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "title": "Samenwerkingsovereenkomst Blauwe Kruis",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8887deef-5dab-4e87-866a-70a3c08875f9",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "title": "Goedkeuring notulen gemeenteraadszitting van 26 februari 2026",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "title": "Goedkeuring notulen gemeenteraadszitting van 26 februari 2026",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "title": "Goedkeuring notulen gemeenteraadszitting van 26 februari 2026",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7a298c78-e01f-44d1-a760-61d606309583",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "title": "Princiepsakkoord Bovenlokaal Netwerk Vrijetijdsparticipatie regio Brugge",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "title": "Princiepsakkoord Bovenlokaal Netwerk Vrijetijdsparticipatie regio Brugge",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "title": "Princiepsakkoord Bovenlokaal Netwerk Vrijetijdsparticipatie regio Brugge",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8ba5c796-f2c4-4587-8a6b-7ce22ff7683d",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/2a131a9a-5474-47b3-bef9-294f5a408002",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "title": "Huwen in open lucht - vastlegging locatie",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "title": "Huwen in open lucht - vastlegging locatie",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "title": "Huwen in open lucht - vastlegging locatie",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/5b836ff4-3f6d-4804-98aa-5ac039ded156",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/8887deef-5dab-4e87-866a-70a3c08875f9",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/8887deef-5dab-4e87-866a-70a3c08875f9",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/41ec4b34-95c7-404e-a89f-c12be4b27400",
+   "vfor": "24",
+   "vagainst": "0",
+   "vabst": "0"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Heilige Moeder Gods” te Beernem met “Sint-Amandus” te Beernem",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Heilige Moeder Gods” te Beernem met “Sint-Amandus” te Beernem",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Heilige Moeder Gods” te Beernem met “Sint-Amandus” te Beernem",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/b88f1bb6-57cb-4463-a502-40057a150712"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Sint-Petrus” te Oedelem (Beernem) met \"Sint-Lambertus” te Oedelem (Beernem)",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Sint-Petrus” te Oedelem (Beernem) met \"Sint-Lambertus” te Oedelem (Beernem)",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "title": "Kennisgeving - Ministerieel Besluit samenvoeging van “Sint-Petrus” te Oedelem (Beernem) met \"Sint-Lambertus” te Oedelem (Beernem)",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/14b8fafb-4248-48d2-a223-0df5473f3992"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "title": "Eventuele vragen en suggesties",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "title": "Eventuele vragen en suggesties",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "title": "Eventuele vragen en suggesties",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/77a1b0ed-53a1-4286-bcfb-e1cc831bff94",
+   "after": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/31f4f912-c9fd-4eda-9044-f53fe9a8d094"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "title": "Mededelingen bij de opening van de zitting",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/notulen",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "title": "Mededelingen bij de opening van de zitting",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/bijkomendeagenda/89590e3a-fbf7-4b65-8e53-7f2aa4892513",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8"
+  },
+  {
+   "ap": "https://beernem-echo.cipalschaubroeck.be/id/agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8",
+   "title": "Mededelingen bij de opening van de zitting",
+   "public": "1",
+   "source": "https://beernem-echo.cipalschaubroeck.be/raadpleegomgeving/zittingen/5189bf23-8e5c-4b80-8518-0acbcb0a581f/agenda",
+   "beh": "https://beernem-echo.cipalschaubroeck.be/id/behandelingen-van-agendapunten/7dd73eaf-8cb3-4081-9369-7f3283beb8b8"
+  }
+ ]
+}
