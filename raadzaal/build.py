@@ -25,9 +25,15 @@ ROUTINE_RE = re.compile(r"\bnotulen\b|\bverslag\b|\brangorde\b", re.I)
 MAX_DECIDED = 5
 
 
-def headline_decisions(decided: list[str]) -> list[str]:
-    """The session summary without its routine lines, at most MAX_DECIDED of them, in the model's order."""
-    return [d for d in decided if d and not ROUTINE_RE.search(d)][:MAX_DECIDED]
+def headline_decisions(decided: list[str], titles: list[str] = ()) -> list[str]:
+    """The session summary without its routine lines and without lines that merely repeat an agenda title,
+    at most MAX_DECIDED of them, in the model's order."""
+    copies = {_key(t) for t in titles}
+    return [d for d in decided if d and not ROUTINE_RE.search(d) and _key(d) not in copies][:MAX_DECIDED]
+
+
+def _key(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
 
 
 def speller(slug: str):
@@ -133,7 +139,7 @@ def session_payload(con, s: dict) -> dict:
     return {"id": s["id"], "municipality": s["municipality"], "municipality_name": m["name"], "date": s["date"], "title": s["title"],
             "duration_s": s["duration_s"], "url": s["url"], "status": s["status"], "lblod_zitting": s["lblod_zitting"],
             "agenda": agenda, "speakers": spk, "attributed_share": attributed,
-            "notes": {"decided": headline_decisions([fix(d) for d in db.loads(notes["decided"])]) if notes else []},
+            "notes": {"decided": headline_decisions([fix(d) for d in db.loads(notes["decided"])], [a["title"] for a in agenda]) if notes else []},
             "method": {"alignment": method, "disagreements_over_120s": disagreements},
             "transcript": transcript}
 
