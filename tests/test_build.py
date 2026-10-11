@@ -39,11 +39,13 @@ def test_build_writes_expected_json(tmp_db, tmp_path, monkeypatch):
     assert doubtful["disagreement"] == 200 and p["method"]["disagreements_over_120s"] == 1
     assert p["speakers"][0]["name"] == "Jos Sypré" and p["attributed_share"] == 0.5
     assert p["speakers"][0]["label"] == "Jos Sypré" and p["speakers"][1]["label"] == "Spreker 1"
+    assert "confidence" not in p["speakers"][0]  # a near-constant score that said nothing about the name
     idx = json.loads((tmp_path / "data" / "index.json").read_text(encoding="utf-8"))
     assert idx["sessions"][0]["items"] == 1 and idx["municipalities"][0]["slug"] == "haacht"
     docs = json.loads((tmp_path / "data" / "search.json").read_text(encoding="utf-8"))
     assert sum(1 for d in docs if d["type"] == "item") == 1 and sum(1 for d in docs if d["type"] == "chunk") >= 80
     st = json.loads((tmp_path / "data" / "stats.json").read_text(encoding="utf-8"))
-    assert st["contested"][0]["votes"]["tegen"] == 9 and st["contested"][0]["start"] is None and st["municipalities"]["beernem"]["party_minutes"] == {"CD&V": 30}
+    assert st["contested"][0]["votes"]["tegen"] == 9 and st["contested"][0]["start"] is None
+    assert "party_minutes" not in st["municipalities"]["beernem"] and st["municipalities"]["beernem"]["attributed_share"] == 0.5
     text = report.render(idx, st, [p])
     assert "| Beernem | 1 |" in text and "Belasting" in text

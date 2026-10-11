@@ -92,7 +92,7 @@ def cut_ocmw_tail(agenda: list[dict], transcript: list[list]) -> float | None:
 def _speakers(con, session_id: str) -> tuple[list[dict], float]:
     turns = [dict(r) for r in con.execute("SELECT speaker,start,end FROM speaker_turns WHERE session_id=?", (session_id,))]
     tt = diarise.speaking_time(turns)
-    names = {r["speaker"]: dict(r) for r in con.execute("SELECT speaker,name,party,role,confidence FROM speaker_names WHERE session_id=?", (session_id,))}
+    names = {r["speaker"]: dict(r) for r in con.execute("SELECT speaker,name,party,role FROM speaker_names WHERE session_id=?", (session_id,))}
     total = sum(tt.values()) or 1.0
     out = []
     rank = 0
@@ -102,7 +102,7 @@ def _speakers(con, session_id: str) -> tuple[list[dict], float]:
             rank += 1
         label = n.get("name") or (f"Spreker {rank}" if sec >= MINOR_S else None)
         out.append({"speaker": spk, "label": label, "name": n.get("name"), "party": n.get("party"), "role": n.get("role"),
-                    "confidence": n.get("confidence"), "seconds": round(sec), "share": round(sec / total, 3)})
+                    "seconds": round(sec), "share": round(sec / total, 3)})
     attributed = round(sum(s["seconds"] for s in out if s["name"]) / total, 3) if out else 0.0
     return out, attributed
 
@@ -156,8 +156,7 @@ def search_docs(payloads: list[dict]) -> list[dict]:
 
 def stats(payloads: list[dict]) -> dict:
     topic_min = defaultdict(float)
-    muni = defaultdict(lambda: {"sessions": 0, "hours": 0.0, "items": 0, "summarised": 0, "party_seconds": defaultdict(float),
-                                "named_seconds": 0.0, "total_seconds": 0.0})
+    muni = defaultdict(lambda: {"sessions": 0, "hours": 0.0, "items": 0, "summarised": 0, "named_seconds": 0.0, "total_seconds": 0.0})
     contested, questions_s, total_span_s = [], 0.0, 0.0
     for p in payloads:
         mm = muni[p["municipality"]]
@@ -181,13 +180,10 @@ def stats(payloads: list[dict]) -> dict:
             mm["total_seconds"] += s["seconds"]
             if s["name"]:
                 mm["named_seconds"] += s["seconds"]
-                if s["party"]:
-                    mm["party_seconds"][s["party"]] += s["seconds"]
     out_m = {}
     for slug, mm in muni.items():
         out_m[slug] = {"sessions": mm["sessions"], "hours": round(mm["hours"], 1), "items": mm["items"], "summarised": mm["summarised"],
-                       "attributed_share": round(mm["named_seconds"] / mm["total_seconds"], 3) if mm["total_seconds"] else 0.0,
-                       "party_minutes": {k: round(v / 60) for k, v in sorted(mm["party_seconds"].items(), key=lambda kv: -kv[1])}}
+                       "attributed_share": round(mm["named_seconds"] / mm["total_seconds"], 3) if mm["total_seconds"] else 0.0}
     return {"topic_minutes": {k: round(v) for k, v in sorted(topic_min.items(), key=lambda kv: -kv[1])},
             "municipalities": out_m, "contested": sorted(contested, key=lambda c: -c["votes"]["tegen"])[:30],
             "questions_share": round(questions_s / total_span_s, 3) if total_span_s else 0.0,

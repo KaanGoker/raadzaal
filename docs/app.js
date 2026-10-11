@@ -72,12 +72,7 @@ async function viewMunicipality(slug) {
   const sessions = idx.sessions.filter(s => s.municipality === slug).map(s => `<li><a href="#/s/${s.id}">${dateNL(s.date)}</a>
       <span class="badge">${s.items} punten</span>${s.summarised ? "" : '<span class="badge">samenvatting volgt</span>'}
       ${s.decided && s.decided.length ? `<div class="small">${s.decided.map(esc).join(" · ")}</div>` : ""}<div class="meta">${fmt(s.duration_s)} opname</div></li>`).join("");
-  const party = Object.entries(ms.party_minutes || {});
-  const total = party.reduce((a, [, v]) => a + v, 0);
-  const bar = total ? `<div class="bar">${party.map(([p, v]) => `<span style="width:${(100 * v / total).toFixed(1)}%;background:${PARTY_COLORS[p] || "#6b7280"}" title="${esc(p)}: ${v} min"></span>`).join("")}</div>
-      <div class="legend">${party.map(([p, v]) => `<span><i style="background:${PARTY_COLORS[p] || "#6b7280"}"></i>${esc(p)} ${v} min</span>`).join("")}</div>` : "";
   app.innerHTML = `<h1>${esc(m.name)}</h1><p class="lead">${m.sessions} zittingen, ${m.hours} uur opname, ${ms.items || 0} agendapunten op de tijdlijn.${m.has_agenda ? "" : " Voor deze gemeente is er geen officiële agenda in Lokaal Beslist; de agendapunten zijn uit de opname zelf gelezen."}</p>
-    ${total ? `<h2>Spreektijd per partij</h2><p class="small muted">Alleen sprekers die met naam herkend zijn (${Math.round(100 * (ms.attributed_share || 0))}% van de spreektijd). De rest is onbenoemd en telt hier niet mee.</p>${bar}` : ""}
     <h2>Zittingen</h2><ul class="list">${sessions}</ul>`;
 }
 

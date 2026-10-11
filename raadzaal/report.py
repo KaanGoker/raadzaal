@@ -12,12 +12,11 @@ def fmt_time(s: float) -> str:
 def render(index: dict, stats: dict, sessions: list[dict], eval_lines: list[str] | None = None) -> str:
     L = ["# Raadzaal report", "", f"Built {index['built_at']}. {stats['hours_total']} hours of council recordings, "
          f"{stats['items_total']} agenda items placed on the timeline, {len(sessions)} sessions.", ""]
-    L += ["## Municipalities", "", "| Municipality | Sessions | Hours | Items | Summarised | Speaking time attributed | Minutes per party (named speakers only) |",
-          "|---|---|---|---|---|---|---|"]
+    L += ["## Municipalities", "", "| Municipality | Sessions | Hours | Items | Summarised | Speaking time attributed |",
+          "|---|---|---|---|---|---|"]
     for m in index["municipalities"]:
         st = stats["municipalities"].get(m["slug"], {})
-        party = ", ".join(f"{k} {v}" for k, v in st.get("party_minutes", {}).items()) or "none yet"
-        L.append(f"| {m['name']} | {m['sessions']} | {m['hours']} | {st.get('items', 0)} | {st.get('summarised', 0)} | {st.get('attributed_share', 0):.0%} | {party} |")
+        L.append(f"| {m['name']} | {m['sessions']} | {m['hours']} | {st.get('items', 0)} | {st.get('summarised', 0)} | {st.get('attributed_share', 0):.0%} |")
     L += ["", "## Sessions", "", "| Date | Municipality | Length | Items | Summarised | Alignment | Named share |", "|---|---|---|---|---|---|---|"]
     for p in sorted(sessions, key=lambda p: p["date"], reverse=True):
         placed = sum(1 for a in p["agenda"] if a["start"] is not None)
