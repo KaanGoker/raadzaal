@@ -106,7 +106,8 @@ def cut_ocmw_tail(agenda: list[dict], transcript: list[list]) -> float | None:
 def _speakers(con, session_id: str) -> tuple[list[dict], float]:
     turns = [dict(r) for r in con.execute("SELECT speaker,start,end FROM speaker_turns WHERE session_id=?", (session_id,))]
     tt = diarise.speaking_time(turns)
-    names = {r["speaker"]: dict(r) for r in con.execute("SELECT speaker,name,party,role FROM speaker_names WHERE session_id=?", (session_id,))}
+    # only names backed by a direct cue in the transcript are published; the other candidates stay in the database
+    names = {r["speaker"]: dict(r) for r in con.execute("SELECT speaker,name,party,role FROM speaker_names WHERE session_id=? AND direct=1", (session_id,))}
     total = sum(tt.values()) or 1.0
     out = []
     rank = 0

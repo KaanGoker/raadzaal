@@ -6,7 +6,7 @@ from pathlib import Path
 
 from raadzaal import config
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS municipalities (
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS speaker_turns (
   start REAL NOT NULL, end REAL NOT NULL);
 CREATE TABLE IF NOT EXISTS speaker_names (
   session_id TEXT NOT NULL, speaker INTEGER NOT NULL, name TEXT, party TEXT, role TEXT,
-  confidence REAL, cues TEXT, PRIMARY KEY(session_id, speaker));
+  direct INTEGER NOT NULL DEFAULT 0, cue_start REAL, cue_text TEXT, cues TEXT, PRIMARY KEY(session_id, speaker));
 CREATE TABLE IF NOT EXISTS item_spans (
   session_id TEXT NOT NULL, item_id INTEGER NOT NULL, start REAL, end REAL,
   method TEXT NOT NULL, score REAL, PRIMARY KEY(session_id, item_id, method));
@@ -79,6 +79,13 @@ def _migrate(con) -> None:
         con.execute("ALTER TABLE summaries DROP COLUMN en")
     if "notable" in {r[1] for r in con.execute("PRAGMA table_info(session_notes)")}:
         con.execute("ALTER TABLE session_notes DROP COLUMN notable")
+    cols = {r[1] for r in con.execute("PRAGMA table_info(speaker_names)")}
+    if "direct" not in cols:  # version 4: a name is published only with a direct cue, and the cue is kept
+        con.execute("ALTER TABLE speaker_names ADD COLUMN direct INTEGER NOT NULL DEFAULT 0")
+        con.execute("ALTER TABLE speaker_names ADD COLUMN cue_start REAL")
+        con.execute("ALTER TABLE speaker_names ADD COLUMN cue_text TEXT")
+    if "confidence" in cols:
+        con.execute("ALTER TABLE speaker_names DROP COLUMN confidence")
 
 
 def upsert_municipality(con, m: dict) -> None:

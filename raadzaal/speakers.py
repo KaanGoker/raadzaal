@@ -107,14 +107,16 @@ def cues_from_text(text: str) -> list[tuple[str, str]]:
     for m in SELF_RE.finditer(text):
         out.append(("self", m.group(1)))
     if not out:
+        # a bare name ("Claudio.", "Meneer Van Besien.") is how most chairs give the floor, but it says nothing
+        # about who gets it: an indirect cue, it supports a name and never carries one on its own
         v = VOCATIVE_RE.match(text.strip())
         if v:
-            kind = "thanks" if v.group("lead") and re.search(r"dank|bedankt|merci", v.group("lead"), re.I) else "handover"
+            kind = "vocative_thanks" if v.group("lead") and re.search(r"dank|bedankt|merci", v.group("lead"), re.I) else "vocative"
             out.append((kind, v.group("name")))
         else:
             t = TRAILING_RE.search(text.strip())
             if t:
-                out.append(("handover", t.group("name")))
+                out.append(("vocative", t.group("name")))
     return [(k, _clean(n)) for k, n in out if _clean(n)]
 
 
@@ -155,16 +157,21 @@ def _prev_speaker_before(segments: list[dict], idx: int, current: int | None, ho
     return None
 
 
-def collect_votes(segments: list[dict], items: list[dict], turn_time: dict[int, float], council: dict | None = None) -> dict[int, dict[str, list]]:
+def collect_votes(segments: list[dict], items: list[dict], turn_time: dict[int, float], council: dict | None = None,
+                  trace: list | None = None) -> dict[int, dict[str, list]]:
     """votes[speaker][name] = list of cue kinds. With a council, a vocative cue only counts when it names a member,
-    and segments that name three or more members (roll-call votes) are skipped."""
+    and segments that name three or more members (roll-call votes) are skipped. When `trace` is a list, every vote
+    is appended to it as (speaker, name, kind, segment start, segment text), so a name can be checked against
+    the transcript line that produced it."""
     votes: dict[int, dict[str, list]] = {}
     given: dict[int, int] = {}
 
-    def vote(spk, name, kind):
+    def vote(spk, name, kind, seg=None):
         if spk is None or not name:
             return
         votes.setdefault(spk, {}).setdefault(name, []).append(kind)
+        if trace is not None:
+            trace.append((spk, name, kind, seg["start"] if seg else None, seg["text"] if seg else ""))
 
     for i, s in enumerate(segments):
         if council and council.get("members") and members_mentioned(s["text"], council) >= 3:
@@ -172,14 +179,14 @@ def collect_votes(segments: list[dict], items: list[dict], turn_time: dict[int, 
         for kind, name in cues_from_text(s["text"]):
             if council and council.get("members") and match_member(name, council) is None:
                 continue
-            if kind == "handover":
-                vote(_next_speaker_after(segments, i, s.get("speaker")), name, kind)
+            if kind in ("handover", "vocative"):
+                vote(_next_speaker_after(segments, i, s.get("speaker")), name, kind, s)
                 if s.get("speaker") is not None:
                     given[s["speaker"]] = given.get(s["speaker"], 0) + 1
-            elif kind == "thanks":
-                vote(_prev_speaker_before(segments, i, s.get("speaker")), name, kind)
+            elif kind in ("thanks", "vocative_thanks"):
+                vote(_prev_speaker_before(segments, i, s.get("speaker")), name, kind, s)
             elif kind == "self":
-                vote(s.get("speaker"), name, kind)
+                vote(s.get("speaker"), name, kind, s)
     # the chair is the one who keeps giving the floor
     total_given = sum(given.values())
     if council and council.get("chair") and total_given >= 5:
@@ -205,10 +212,12 @@ def collect_votes(segments: list[dict], items: list[dict], turn_time: dict[int, 
 
 
 def decide(votes: dict[int, dict[str, list]], council: dict) -> dict[int, dict]:
-    """A speaker gets a name when one council member wins at least two cues, beats the runner-up two to one, and at
-    least one cue is direct (given the floor, thanked, or introducing themselves). Being the chair or the name in an
-    agenda title only supports a name: on their own they named the wrong cluster too often (a schepen answering a
-    question, councillors merged into the chair's cluster). People who are not on the council list are never named."""
+    """A speaker is a candidate for a name when one council member wins at least two cues and beats the runner-up
+    two to one. The name is `direct` when at least one cue is a transcript line that gives the floor to, thanks, or
+    introduces that member with an explicit phrase ("het woord is aan schepen De Wit"); only direct names are
+    published. A bare name as vocative, being the chair, or the name in an agenda title only supports a name: on
+    their own they named the wrong cluster too often (a schepen answering a question, councillors merged into the
+    chair's cluster). People who are not on the council list are never named."""
     out = {}
     for spk, names in votes.items():
         scored = []
@@ -225,18 +234,28 @@ def decide(votes: dict[int, dict[str, list]], council: dict) -> dict[int, dict]:
         second = len(ranked[1][1]["kinds"]) if len(ranked) > 1 else 0
         n = len(top["kinds"])
         direct = sum(1 for k in top["kinds"] if k in DIRECT_CUES)
-        if n >= MIN_VOTES and n >= 2 * second and direct >= 1 and top["member"]:
-            member = top["member"] or {}
+        if n >= MIN_VOTES and n >= 2 * second and top["member"]:
+            member = top["member"]
             out[spk] = {"name": top_name, "party": member.get("party"), "role": member.get("role"),
-                        "confidence": round(min(1.0, n / (n + second + 1)), 2), "cues": top["kinds"]}
+                        "direct": direct >= 1, "cues": top["kinds"]}
     return out
 
 
+def evidence(spk: int, name: str, council: dict, trace: list) -> tuple[float | None, str]:
+    """The transcript line behind a name: the earliest direct cue for this speaker and member, else the earliest
+    cue of any kind. Returns (segment start, text)."""
+    hits = [t for t in trace if t[0] == spk and t[3] is not None and (match_member(t[1], council) or {}).get("name") == name]
+    direct = [t for t in hits if t[2] in DIRECT_CUES]
+    pick = min(direct or hits, key=lambda t: t[3], default=None)
+    return (pick[3], pick[4]) if pick else (None, "")
+
+
 def attributed_share(turn_time: dict[int, float], names: dict[int, dict]) -> float:
+    """Share of the speaking time that carries a published (direct) name."""
     total = sum(turn_time.values())
     if not total:
         return 0.0
-    return round(sum(t for spk, t in turn_time.items() if spk in names) / total, 3)
+    return round(sum(t for spk, t in turn_time.items() if spk in names and names[spk].get("direct", True)) / total, 3)
 
 
 def run(con, session: dict, args) -> int:
@@ -248,10 +267,16 @@ def run(con, session: dict, args) -> int:
         "WHERE a.session_id=?", (session["id"],))]
     council = load_council(session["municipality"], session["date"])
     tt = diarise.speaking_time(turns)
-    names = decide(collect_votes(segs, items, tt, council), council)
-    rows = [{"session_id": session["id"], "speaker": spk, "name": v["name"], "party": v["party"], "role": v["role"],
-             "confidence": v["confidence"], "cues": db.dumps(v["cues"])} for spk, v in names.items()]
+    trace: list = []
+    names = decide(collect_votes(segs, items, tt, council, trace), council)
+    rows = []
+    for spk, v in names.items():
+        start, text = evidence(spk, v["name"], council, trace)
+        rows.append({"session_id": session["id"], "speaker": spk, "name": v["name"], "party": v["party"], "role": v["role"],
+                     "direct": int(v["direct"]), "cue_start": start, "cue_text": text[:300], "cues": db.dumps(v["cues"])})
     db.replace_rows(con, "speaker_names", session["id"], rows)
     share = attributed_share(tt, names)
-    print(f"{session['municipality']:<10} {session['date']}  {len(names)} of {len(tt)} speakers named, {share:.0%} of speaking time")
+    shown = sum(1 for v in names.values() if v["direct"])
+    print(f"{session['municipality']:<10} {session['date']}  {shown} of {len(tt)} speakers named ({len(names) - shown} candidates without a direct cue), "
+          f"{share:.0%} of speaking time")
     return 0

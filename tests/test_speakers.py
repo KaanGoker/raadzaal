@@ -31,19 +31,24 @@ def test_two_cue_rule():
     one = {3: {"De Wit": ["handover"]}}
     assert speakers.decide(one, COUNCIL) == {}
     two = {3: {"De Wit": ["handover", "thanks"]}}
-    assert speakers.decide(two, COUNCIL)[3]["name"] == "Els De Wit"
+    assert speakers.decide(two, COUNCIL)[3]["name"] == "Els De Wit" and speakers.decide(two, COUNCIL)[3]["direct"]
     tie = {3: {"De Wit": ["handover", "thanks"], "Reynaert": ["handover", "thanks"]}}
     assert speakers.decide(tie, COUNCIL) == {}
     assert speakers.decide({4: {"Peeters": ["handover", "thanks", "thanks", "self"]}}, COUNCIL) == {}  # not on the council
+    bare = {3: {"De Wit": ["vocative", "vocative"]}}  # a candidate, but without a direct cue it is not published
+    assert speakers.decide(bare, COUNCIL)[3]["direct"] is False
+    assert speakers.attributed_share({3: 60, 4: 40}, speakers.decide(bare, COUNCIL)) == 0.0
 
 
 def test_votes_use_neighbouring_speakers():
     segs = [{"start": 0, "end": 4, "text": "Het woord is aan schepen De Wit.", "speaker": 0},
             {"start": 5, "end": 30, "text": "Dank u voorzitter. Over het dossier.", "speaker": 1},
             {"start": 31, "end": 34, "text": "Dank u wel, schepen De Wit.", "speaker": 0}]
-    votes = speakers.collect_votes(segs, [], {0: 7, 1: 25})
+    trace = []
+    votes = speakers.collect_votes(segs, [], {0: 7, 1: 25}, trace=trace)
     assert votes == {1: {"De Wit": ["handover", "thanks"]}}
     assert speakers.decide(votes, COUNCIL)[1]["name"] == "Els De Wit"
+    assert speakers.evidence(1, "Els De Wit", COUNCIL, trace) == (0, "Het woord is aan schepen De Wit.")
 
 
 def test_attributed_share():
@@ -90,11 +95,12 @@ def test_flemish_spelling_and_unique_first_names():
 
 
 def test_vocative_cues():
-    assert speakers.cues_from_text("Claudio.") == [("handover", "Claudio")]
-    assert speakers.cues_from_text("Meneer Van Besien.") == [("handover", "Van Besien")]
-    assert speakers.cues_from_text("Puntje 3. De projectvereniging Vrije Tijds Regio Brugge, Patricia.") == [("handover", "Patricia")]
-    assert speakers.cues_from_text("Zijn hier vragen of opmerkingen, meneer Van Besien?") == [("handover", "Van Besien")]
+    assert speakers.cues_from_text("Claudio.") == [("vocative", "Claudio")]
+    assert speakers.cues_from_text("Meneer Van Besien.") == [("vocative", "Van Besien")]
+    assert speakers.cues_from_text("Puntje 3. De projectvereniging Vrije Tijds Regio Brugge, Patricia.") == [("vocative", "Patricia")]
+    assert speakers.cues_from_text("Zijn hier vragen of opmerkingen, meneer Van Besien?") == [("vocative", "Van Besien")]
     assert speakers.cues_from_text("Oké, dank u wel, mevrouw Goddijn.")[0][0] == "thanks"
+    assert speakers.cues_from_text("Dank u wel, Claudio.")[0][0] == "vocative_thanks"
     assert speakers.cues_from_text("Nee.") == []  # a stop word, never a name
 
 
@@ -110,15 +116,16 @@ def test_roll_call_is_skipped_and_chair_is_found():
     votes = speakers.collect_votes(segs, [], {0: 12, 1: 40, 2: 40, 3: 20, 4: 20}, FULL)
     named = speakers.decide(votes, FULL)
     assert "chair" in votes[0]["Kris Vincke"]  # the chair is recognised
-    assert 0 not in named  # but being the chair alone does not name a cluster
+    assert not named[0]["direct"]  # but being the chair alone does not publish a name
     assert named[1]["name"] == "Claudio Saelens" and named[2]["name"] == "Patricia Waerniers"
+    assert not named[1]["direct"] and not named[2]["direct"]  # bare names only: candidates, not published
     assert 3 not in named  # one cue only
 
 
 def test_agenda_title_alone_names_nobody():
     votes = {7: {"Claudio Saelens": ["agenda", "agenda"]}, 8: {"Patricia Waerniers": ["agenda", "handover"]}}
     named = speakers.decide(votes, FULL)
-    assert 7 not in named and named[8]["name"] == "Patricia Waerniers"
+    assert not named[7]["direct"] and named[8]["name"] == "Patricia Waerniers" and named[8]["direct"]
 
 
 def test_regroup_merge_map_and_apply():

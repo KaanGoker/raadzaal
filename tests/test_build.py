@@ -19,7 +19,10 @@ def _seed(con):
         text = "Dan gaan we over naar de OCMW-raad." if i == 500 else f"zin {i}"
         con.execute("INSERT INTO transcript_segments(session_id,start,end,text,speaker) VALUES('v1',?,?,?,?)", (i, i + 9, text, i // 1800))
     con.execute("INSERT INTO speaker_turns(session_id,speaker,start,end) VALUES('v1',0,0,1800),('v1',1,1800,3600)")
-    con.execute("INSERT INTO speaker_names VALUES('v1',0,'Jos Sypré','CD&V','burgemeester',0.9,'[]')")
+    con.execute("INSERT INTO speaker_names(session_id,speaker,name,party,role,direct,cue_start,cue_text,cues) "
+                "VALUES('v1',0,'Jos Sypré','CD&V','burgemeester',1,3.0,'Het woord is aan de burgemeester Sypré.','[\"handover\",\"thanks\"]')")
+    con.execute("INSERT INTO speaker_names(session_id,speaker,name,party,role,direct,cue_start,cue_text,cues) "
+                "VALUES('v1',1,'Els De Wit','N-VA','schepen',0,1810.0,'Els.','[\"vocative\",\"vocative\"]')")
     decided = json.dumps(["Notulen goedgekeurd", "Belasting aangenomen", "Rangorde vastgesteld", "Vraag over fietspad"] + [f"Besluit {i}" for i in range(6)])
     con.execute("INSERT INTO session_notes VALUES('v1','m','h',?,'t')", (decided,))
     con.commit()
@@ -39,7 +42,7 @@ def test_build_writes_expected_json(tmp_db, tmp_path, monkeypatch):
     assert doubtful["summary"] is None and doubtful["doubtful"] and doubtful["start"] is None and doubtful["placed_at"] == 600
     assert doubtful["disagreement"] == 200 and p["method"]["disagreements_over_120s"] == 1
     assert p["speakers"][0]["name"] == "Jos Sypré" and p["attributed_share"] == 0.5
-    assert p["speakers"][0]["label"] == "Jos Sypré" and p["speakers"][1]["label"] == "Spreker 1"
+    assert p["speakers"][0]["label"] == "Jos Sypré" and p["speakers"][1]["label"] == "Spreker 1"  # no direct cue: no name shown
     assert "confidence" not in p["speakers"][0]  # a near-constant score that said nothing about the name
     # routine lines and copies of an agenda title out, five at most
     assert p["notes"]["decided"] == ["Belasting aangenomen", "Besluit 0", "Besluit 1", "Besluit 2", "Besluit 3"]
