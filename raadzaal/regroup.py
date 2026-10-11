@@ -10,7 +10,7 @@ from raadzaal import config, db, diarise, fetch, transcribe
 
 MAX_AUDIO_S = 60.0
 MIN_TURN_S = 1.0
-MERGE_THRESHOLD = float(os.environ.get("REGROUP_THRESHOLD", "0.4"))  # cosine distance; 0.4 F 0.961, 0.5 merges people (data/tune)
+MERGE_THRESHOLD = float(os.environ.get("REGROUP_THRESHOLD", "0.4"))  # cosine distance; 0.4 gives F 0.96 on the labelled excerpt, 0.5 merges people
 
 
 def _extractor():

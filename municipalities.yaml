@@ -57,4 +57,4 @@
   lblod_harvester: null
   lblod_label: Leuven
   lblod_org: Gemeenteraad Leuven
-  note: recordings live on besluitvorming.leuven.be, unreachable from outside the EU on 24 Sep 2026; needs the media URL (see the plan, Needs Kaan)
+  note: recordings live on besluitvorming.leuven.be, which did not answer requests from outside the EU on 24 Sep 2026; waits for a media URL that can be fetched from Belgium

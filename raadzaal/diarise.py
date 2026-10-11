@@ -11,7 +11,7 @@ from raadzaal import config, db, fetch, transcribe
 
 SEG_URL = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2"
 EMB_URL = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx"
-THRESHOLD = 0.7  # tuned 24 Sep on a hand-labelled Beernem excerpt (data/tune): ERes2Net 0.7 purity 0.975, CAM++ best 0.82
+THRESHOLD = 0.7  # tuned on ten hand-labelled minutes of Beernem, see EVALUATION.md: ERes2Net at 0.7 beats CAM++ at any threshold
 MERGE_GAP = 1.0
 THREADS = int(os.environ.get('DIAR_THREADS', '4'))
 CHUNK_S = 45 * 60  # the one-pass clustering needs about 8 GB on a 150-minute session; chunks keep it under 1 GB
