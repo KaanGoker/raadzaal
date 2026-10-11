@@ -4,7 +4,7 @@ const PARTY_COLORS = {"N-VA": "#f2c500", "CD&V": "#ff8000", "Vooruit": "#e30613"
   "Groen+Vooruit": "#8bbf3f", "Tervuren Unie + Volt": "#6c3c96"};
 const GREY = ["#9aa5b4", "#7f8a99", "#b7c0cc", "#6a7482", "#c9d0d9", "#55606e"];
 const TOPIC_LABEL = t => t.charAt(0).toUpperCase() + t.slice(1);
-const state = {index: null, stats: null, sessions: {}, search: null, docs: null, chartResize: null};
+const state = {index: null, stats: null, sessions: {}, search: null, docs: null};
 const CONTACT = "nadirkaangoker@gmail.com";
 const app = document.getElementById("app");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
@@ -18,6 +18,7 @@ async function loadIndex() { if (!state.index) { [state.index, state.stats] = aw
 async function loadSession(id) { if (!state.sessions[id]) state.sessions[id] = await getJSON(`data/sessions/${id}.json`); return state.sessions[id]; }
 async function loadSearch() {
   if (state.search) return state.search;
+  if (typeof MiniSearch === "undefined") throw new Error("vendor/minisearch-7.1.0.js did not load");
   state.docs = await getJSON("data/search.json");
   const ms = new MiniSearch({fields: ["title", "text"], storeFields: ["type", "session", "municipality", "date", "title", "text", "start"],
     searchOptions: {prefix: true, fuzzy: 0.15, boost: {title: 2}}});
@@ -59,8 +60,15 @@ async function viewHome() {
     <div class="grid">${munis}</div>
     <h2>Laatste zittingen</h2><ul class="list">${recent}</ul>
     <h2>Waar ging de tijd naartoe?</h2><p class="small muted">Minuten per onderwerp over alle samengevatte agendapunten (${st.items_total} punten, ${st.hours_total} uur opname).</p>
-    <div id="topics" class="chart"></div>`;
-  drawTopics(document.getElementById("topics"), st.topic_minutes);
+    ${topicBars(st.topic_minutes)}`;
+}
+
+function topicBars(topics) {
+  const entries = Object.entries(topics || {});
+  if (!entries.length) return "<p class='muted small'>Nog geen samenvattingen.</p>";
+  const max = Math.max(...entries.map(e => e[1])) || 1;
+  return `<div class="hbars">${entries.map(([t, v]) => `<div class="hbar"><span class="hbar-label">${esc(TOPIC_LABEL(t))}</span>
+      <span class="hbar-track"><span class="hbar-fill" style="width:${(100 * v / max).toFixed(1)}%"></span></span><span class="hbar-value">${v} min</span></div>`).join("")}</div>`;
 }
 
 async function viewMunicipality(slug) {
@@ -121,8 +129,12 @@ async function viewSession(id) {
 async function viewSearch(q) {
   setTitle("Zoeken");
   app.innerHTML = `<h1>Zoeken</h1><form class="search" onsubmit="location.hash='#/zoek?q='+encodeURIComponent(this.q.value);return false;"><input name="q" value="${esc(q)}" placeholder="Zoekterm" aria-label="Zoeken" autofocus><button>Zoek</button></form><div id="res"><p class="muted">Index laden...</p></div>`;
-  const ms = await loadSearch();
   const res = document.getElementById("res");
+  let ms;
+  try { ms = await loadSearch(); } catch (e) {
+    res.innerHTML = `<p class="muted">De zoekindex kon niet geladen worden. Herlaad de pagina; blijft het misgaan, mail dan <a href="mailto:${CONTACT}">${CONTACT}</a>.</p>`;
+    return;
+  }
   if (!q) { res.innerHTML = `<p class="muted">Zoek in alle agendapunten en transcripten. Resultaten linken naar de seconde in de video.</p>`; return; }
   const all = ms.search(q), hits = all.slice(0, 60);
   const idx = await loadIndex();
@@ -152,25 +164,6 @@ async function viewMethod() {
     <h2>Omstreden stemmingen</h2>${st.contested.length ? `<div class="scroll"><table><tr><th>Datum</th><th>Gemeente</th><th>Punt</th><th>Voor</th><th>Tegen</th><th>Onth.</th></tr>${st.contested.slice(0, 15).map(c => `<tr><td>${dateNL(c.date)}</td><td>${esc(c.municipality)}</td><td><a href="#/s/${c.session}">${esc(c.title)}</a></td><td>${c.votes.voor}</td><td>${c.votes.tegen}</td><td>${c.votes.onthouding}</td></tr>`).join("")}</table></div>` : "<p class='muted'>Nog geen.</p>"}
     <h2>Fouten, privacy en verwijdering</h2><p>Spraakherkenning maakt fouten, zeker bij tussentaal, slechte microfoons en door elkaar praten. De samenvattingen zijn met AI gemaakt en zo gelabeld. De video is altijd de bron.</p>
     <p>Wie iets ziet dat niet klopt of niet hoort, bijvoorbeeld een naam of een persoonlijk detail in een transcript, mailt naar <a href="mailto:${CONTACT}">${CONTACT}</a>. Verwijderverzoeken worden binnen 48 uur verwerkt.</p>`;
-}
-
-function drawTopics(el, topics) {
-  const entries = Object.entries(topics || {});
-  if (!entries.length || typeof echarts === "undefined") { el.innerHTML = "<p class='muted small'>Nog geen samenvattingen.</p>"; return; }
-  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-  const narrow = el.clientWidth < 520;
-  const ch = echarts.init(el, null, {renderer: "svg"});
-  ch.setOption({grid: {left: 8, right: 48, top: 8, bottom: 24, containLabel: true},
-    xAxis: {type: "value", name: "min", splitNumber: narrow ? 3 : 5, axisLabel: {color: dark ? "#9aa5b4" : "#5f6b7a"},
-      splitLine: {lineStyle: {color: dark ? "#2c3541" : "#e2ddd2"}}},
-    yAxis: {type: "category", inverse: true, data: entries.map(e => TOPIC_LABEL(e[0])),
-      axisLabel: {color: dark ? "#e8e6e0" : "#1d2530", fontFamily: "system-ui", width: narrow ? 130 : 220, overflow: "break"}},
-    series: [{type: "bar", data: entries.map(e => e[1]), itemStyle: {color: dark ? "#8fb8de" : "#173b5c", borderRadius: [0, 4, 4, 0]},
-      label: {show: true, position: "right", color: dark ? "#e8e6e0" : "#1d2530"}}],
-    tooltip: {trigger: "axis"}});
-  if (state.chartResize) removeEventListener("resize", state.chartResize);
-  state.chartResize = () => ch.resize();
-  addEventListener("resize", state.chartResize);
 }
 
 addEventListener("hashchange", route);
