@@ -53,7 +53,7 @@ def _agenda(con, session_id: str, fix=lambda t: t) -> list[dict]:
         "SELECT a.id, a.position, a.title, a.public, a.votes_for, a.votes_against, a.abstentions, a.outcome AS vote_outcome, a.origin, a.source_url, "
         "s.start, s.end, s.score AS disagreement, m.nl, m.en, m.topic, m.outcome, m.raised_by, m.quote, m.quote_start, m.discussed "
         "FROM agenda_items a LEFT JOIN item_spans s ON s.item_id=a.id AND s.session_id=a.session_id AND s.method='final' "
-        "LEFT JOIN summaries m ON m.item_id=a.id WHERE a.session_id=? ORDER BY COALESCE(s.start, 1e9), a.position", (session_id,)).fetchall()
+        "LEFT JOIN summaries m ON m.item_id=a.id WHERE a.session_id=? ORDER BY a.position, a.id", (session_id,)).fetchall()
     out = []
     for r in rows:
         d = dict(r)
