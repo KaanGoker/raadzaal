@@ -13,11 +13,11 @@ def test_quote_must_exist_in_text():
 def test_verify_drops_unknown_names_and_bad_quotes():
     allowed = ["Els De Wit"]
     item = {"title": "Vraag over het fietspad", "text": "[1] Spreker 1: het fietspad is gevaarlijk zegt iedereen hier."}
-    s = ItemSummary(nl="x", en="y", topic="mobiliteit", outcome="kennisname", raised_by="Jan Peeters",
+    s = ItemSummary(nl="x", topic="mobiliteit", outcome="kennisname", raised_by="Jan Peeters",
                     quote="het zwembad is gesloten", quote_start=3)
     v = summarise.verify(s, item, allowed)
     assert v.raised_by is None and v.quote is None and v.quote_start is None
-    s2 = ItemSummary(nl="x", en="y", topic="mobiliteit", outcome="kennisname", raised_by="schepen De Wit",
+    s2 = ItemSummary(nl="x", topic="mobiliteit", outcome="kennisname", raised_by="schepen De Wit",
                      quote="het fietspad is gevaarlijk zegt iedereen hier", quote_start=1)
     v2 = summarise.verify(s2, item, allowed)
     assert v2.raised_by == "Els De Wit" and v2.quote
@@ -40,7 +40,7 @@ def test_llm_cache_roundtrip(tmp_path, monkeypatch):
     from raadzaal import config
     monkeypatch.setattr(config, "CACHE", tmp_path)
     key = llm.cache_key("m", "prompt", "ItemSummary")
-    llm.cache_path(key).write_text(ItemSummary(nl="n", en="e", topic="andere", outcome="onbekend").model_dump_json(), encoding="utf-8")
+    llm.cache_path(key).write_text(ItemSummary(nl="n", topic="andere", outcome="onbekend").model_dump_json(), encoding="utf-8")
     monkeypatch.setattr(config, "LLM_MODEL", "m")
     got = llm.generate("prompt", ItemSummary)
     assert got.nl == "n"  # served from the cache, no client needed
@@ -53,8 +53,8 @@ def test_quota_detection():
 
 def test_match_by_number_survives_a_dropped_item():
     items = [{"position": 1}, {"position": 2}, {"position": 3}]
-    got = [ItemSummary(number=1, nl="a", en="a", topic="andere", outcome="onbekend"),
-           ItemSummary(number=3, nl="c", en="c", topic="andere", outcome="onbekend")]
+    got = [ItemSummary(number=1, nl="a", topic="andere", outcome="onbekend"),
+           ItemSummary(number=3, nl="c", topic="andere", outcome="onbekend")]
     out = summarise.match_by_number(items, got)
     assert [o.nl if o else None for o in out] == ["a", None, "c"]
 
@@ -71,8 +71,8 @@ def test_one_call_per_session(monkeypatch):
 
     def fake_generate(prompt, schema, **kw):
         calls.append(schema.__name__)
-        return summarise.SessionSummary(items=[ItemSummary(number=i, nl=f"n{i}", en="e", topic="andere", outcome="onbekend") for i in (1, 2)],
-                                        decided=["x"], notable=[])
+        return summarise.SessionSummary(items=[ItemSummary(number=i, nl=f"n{i}", topic="andere", outcome="onbekend") for i in (1, 2)],
+                                        decided=["x"])
     monkeypatch.setattr(llm, "generate", fake_generate)
     monkeypatch.setattr(config, "municipality", lambda slug: {"name": "Beernem"})
     items = [{"position": 1, "title": "a", "text": "t"}, {"position": 2, "title": "b", "text": "t"}]
@@ -82,7 +82,7 @@ def test_one_call_per_session(monkeypatch):
 
 def test_raised_by_only_for_questions_and_from_the_title():
     allowed = ["Kris Vincke", "Els Peeters"]
-    base = dict(nl="x", en="y", topic="andere", outcome="onbekend")
+    base = dict(nl="x", topic="andere", outcome="onbekend")
     plain = {"title": "Kosteloze grondafstand Biezemoerstraat", "text": ""}
     assert summarise.verify(ItemSummary(raised_by="Kris Vincke", **base), plain, allowed).raised_by is None
     titled = {"title": "Voorstel over het voormalig politiecommissariaat (raadslid Peeters)", "text": ""}
@@ -92,5 +92,5 @@ def test_raised_by_only_for_questions_and_from_the_title():
 def test_quote_time_comes_from_the_transcript():
     segs = [{"start": 10.0, "end": 12, "text": "Goedenavond iedereen."}, {"start": 40.0, "end": 45, "text": "Wij stellen voor om het reglement goed te keuren."}]
     item = {"title": "Reglement", "text": "[40] Spreker 1: Wij stellen voor om het reglement goed te keuren.", "segments": segs}
-    s = ItemSummary(nl="x", en="y", topic="andere", outcome="onbekend", quote="Wij stellen voor om het reglement goed te keuren.", quote_start=999)
+    s = ItemSummary(nl="x", topic="andere", outcome="onbekend", quote="Wij stellen voor om het reglement goed te keuren.", quote_start=999)
     assert summarise.verify(s, item, []).quote_start == 40.0

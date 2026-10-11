@@ -6,7 +6,7 @@ from pathlib import Path
 
 from raadzaal import config
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS municipalities (
@@ -36,10 +36,11 @@ CREATE TABLE IF NOT EXISTS item_spans (
   session_id TEXT NOT NULL, item_id INTEGER NOT NULL, start REAL, end REAL,
   method TEXT NOT NULL, score REAL, PRIMARY KEY(session_id, item_id, method));
 CREATE TABLE IF NOT EXISTS summaries (
-  item_id INTEGER PRIMARY KEY, model TEXT, content_hash TEXT NOT NULL, nl TEXT, en TEXT, topic TEXT,
-  outcome TEXT, raised_by TEXT, quote TEXT, quote_start REAL, created_at TEXT NOT NULL);
+  item_id INTEGER PRIMARY KEY, model TEXT, content_hash TEXT NOT NULL, nl TEXT, topic TEXT,
+  outcome TEXT, raised_by TEXT, quote TEXT, quote_start REAL, created_at TEXT NOT NULL,
+  discussed INTEGER NOT NULL DEFAULT 1);
 CREATE TABLE IF NOT EXISTS session_notes (
-  session_id TEXT PRIMARY KEY, model TEXT, content_hash TEXT NOT NULL, decided TEXT, notable TEXT,
+  session_id TEXT PRIMARY KEY, model TEXT, content_hash TEXT NOT NULL, decided TEXT,
   created_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS runs (
   id INTEGER PRIMARY KEY AUTOINCREMENT, step TEXT NOT NULL, session_id TEXT, started_at TEXT NOT NULL,
@@ -63,12 +64,21 @@ def connect(path: Path | None = None) -> sqlite3.Connection:
     version = con.execute("PRAGMA user_version").fetchone()[0]
     if version < SCHEMA_VERSION:
         con.executescript(SCHEMA)
-        cols = {r[1] for r in con.execute("PRAGMA table_info(summaries)")}
-        if "discussed" not in cols:
-            con.execute("ALTER TABLE summaries ADD COLUMN discussed INTEGER NOT NULL DEFAULT 1")
+        _migrate(con)
         con.execute(f"PRAGMA user_version={SCHEMA_VERSION}")
         con.commit()
     return con
+
+
+def _migrate(con) -> None:
+    """Bring a database from an earlier schema version up to date; each step is a no-op on a fresh file."""
+    cols = {r[1] for r in con.execute("PRAGMA table_info(summaries)")}
+    if "discussed" not in cols:  # version 2
+        con.execute("ALTER TABLE summaries ADD COLUMN discussed INTEGER NOT NULL DEFAULT 1")
+    if "en" in cols:  # version 3: the English line and the notable moments were generated but never published
+        con.execute("ALTER TABLE summaries DROP COLUMN en")
+    if "notable" in {r[1] for r in con.execute("PRAGMA table_info(session_notes)")}:
+        con.execute("ALTER TABLE session_notes DROP COLUMN notable")
 
 
 def upsert_municipality(con, m: dict) -> None:

@@ -11,17 +11,17 @@ def _seed(con):
     con.execute("INSERT INTO item_spans VALUES('v1',1,0,600,'final',10)")
     con.execute("INSERT INTO item_spans VALUES('v1',2,600,2400,'final',200)")
     con.execute("INSERT INTO item_spans VALUES('v1',3,NULL,NULL,'final',NULL)")
-    con.execute("INSERT INTO summaries(item_id,model,content_hash,nl,en,topic,outcome,raised_by,quote,quote_start,created_at,discussed) "
-                "VALUES(1,'m','h','Notulen goedgekeurd.','Minutes approved.','participatie en bestuur','aangenomen',NULL,NULL,NULL,'t',1)")
-    con.execute("INSERT INTO summaries(item_id,model,content_hash,nl,en,topic,outcome,created_at,discussed) "
-                "VALUES(2,'m','h','Dit punt werd niet teruggevonden in de opname.','Not found.','financiën','onbekend','t',0)")
+    con.execute("INSERT INTO summaries(item_id,model,content_hash,nl,topic,outcome,raised_by,quote,quote_start,created_at,discussed) "
+                "VALUES(1,'m','h','Notulen goedgekeurd.','participatie en bestuur','aangenomen',NULL,NULL,NULL,'t',1)")
+    con.execute("INSERT INTO summaries(item_id,model,content_hash,nl,topic,outcome,created_at,discussed) "
+                "VALUES(2,'m','h','Dit punt werd niet teruggevonden in de opname.','financiën','onbekend','t',0)")
     for i in range(0, 3600, 10):
         text = "Dan gaan we over naar de OCMW-raad." if i == 500 else f"zin {i}"
         con.execute("INSERT INTO transcript_segments(session_id,start,end,text,speaker) VALUES('v1',?,?,?,?)", (i, i + 9, text, i // 1800))
     con.execute("INSERT INTO speaker_turns(session_id,speaker,start,end) VALUES('v1',0,0,1800),('v1',1,1800,3600)")
     con.execute("INSERT INTO speaker_names VALUES('v1',0,'Jos Sypré','CD&V','burgemeester',0.9,'[]')")
     decided = json.dumps(["Notulen goedgekeurd", "Belasting aangenomen", "Rangorde vastgesteld", "Vraag over fietspad"] + [f"Besluit {i}" for i in range(6)])
-    con.execute("INSERT INTO session_notes VALUES('v1','m','h',?,'[]','t')", (decided,))
+    con.execute("INSERT INTO session_notes VALUES('v1','m','h',?,'t')", (decided,))
     con.commit()
     db.advance(con, "v1", "transcribed")
 

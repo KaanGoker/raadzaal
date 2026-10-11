@@ -19,7 +19,6 @@ class ItemSummary(BaseModel):
     number: int | None = None
     discussed: bool = True
     nl: str
-    en: str
     topic: Literal[TOPICS]  # type: ignore[valid-type]
     outcome: Literal[OUTCOMES]  # type: ignore[valid-type]
     raised_by: str | None = None
@@ -31,20 +30,13 @@ class ItemSummaries(BaseModel):
     items: list[ItemSummary]
 
 
-class Moment(BaseModel):
-    time_s: float
-    text: str
-
-
 class SessionNotes(BaseModel):
     decided: list[str]
-    notable: list[Moment]
 
 
 class SessionSummary(BaseModel):
     items: list[ItemSummary]
     decided: list[str]
-    notable: list[Moment]
 
 
 def _norm(t: str) -> str:
@@ -156,7 +148,7 @@ def summarise_session(session: dict, items: list[dict], allowed: list[str], with
         if with_notes and last and len(parts) == 1:
             prompt += "\n\n" + (config.PROMPTS / "session_inline.md").read_text(encoding="utf-8").format(allowed_names=", ".join(allowed) or "(none)")
             res = llm.generate(prompt, SessionSummary)
-            notes = SessionNotes(decided=res.decided, notable=res.notable)
+            notes = SessionNotes(decided=res.decided)
         else:
             res = llm.generate(prompt, ItemSummaries)
         results.extend(match_by_number(part, list(res.items)))
@@ -245,9 +237,9 @@ def run(con, session: dict, args) -> int:
                 if sm is None:
                     continue
                 v = verify(sm, it, allowed)
-                con.execute("INSERT OR REPLACE INTO summaries(item_id,model,content_hash,nl,en,topic,outcome,raised_by,quote,quote_start,created_at,discussed) "
-                            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
-                            (it["id"], config.LLM_MODEL, it["hash"], v.nl, v.en, v.topic, v.outcome, v.raised_by, v.quote, v.quote_start, db.now(),
+                con.execute("INSERT OR REPLACE INTO summaries(item_id,model,content_hash,nl,topic,outcome,raised_by,quote,quote_start,created_at,discussed) "
+                            "VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+                            (it["id"], config.LLM_MODEL, it["hash"], v.nl, v.topic, v.outcome, v.raised_by, v.quote, v.quote_start, db.now(),
                              int(v.discussed)))
                 done += 1
             con.commit()
@@ -259,8 +251,8 @@ def run(con, session: dict, args) -> int:
             h = content_hash(config.LLM_MODEL, *[(s or {}).get("nl", "") for s in sums])
             if args.force or con.execute("SELECT 1 FROM session_notes WHERE session_id=? AND content_hash=?", (session["id"], h)).fetchone() is None:
                 notes = inline_notes or session_notes(session, items, sums, allowed)
-                con.execute("INSERT OR REPLACE INTO session_notes(session_id,model,content_hash,decided,notable,created_at) VALUES(?,?,?,?,?,?)",
-                            (session["id"], config.LLM_MODEL, h, db.dumps(notes.decided), db.dumps([m.model_dump() for m in notes.notable]), db.now()))
+                con.execute("INSERT OR REPLACE INTO session_notes(session_id,model,content_hash,decided,created_at) VALUES(?,?,?,?,?)",
+                            (session["id"], config.LLM_MODEL, h, db.dumps(notes.decided), db.now()))
                 con.commit()
         pending = sum(1 for it in items if con.execute("SELECT 1 FROM summaries WHERE item_id=?", (it["id"],)).fetchone() is None)
         if pending == 0:

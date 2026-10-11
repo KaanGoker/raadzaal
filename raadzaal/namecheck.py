@@ -94,12 +94,12 @@ def is_allowed(person: str, allowed: list[str]) -> bool:
 
 def _texts(con, session_id: str) -> dict[str, str]:
     out = {}
-    for r in con.execute("SELECT m.item_id, m.nl, m.en, m.quote FROM summaries m JOIN agenda_items a ON a.id=m.item_id "
+    for r in con.execute("SELECT m.item_id, m.nl, m.quote FROM summaries m JOIN agenda_items a ON a.id=m.item_id "
                          "WHERE a.session_id=?", (session_id,)):
-        for field in ("nl", "quote"):  # the English line is not published
+        for field in ("nl", "quote"):
             if r[field]:
                 out[f"{r['item_id']}.{field}"] = r[field]
-    notes = con.execute("SELECT decided, notable FROM session_notes WHERE session_id=?", (session_id,)).fetchone()
+    notes = con.execute("SELECT decided FROM session_notes WHERE session_id=?", (session_id,)).fetchone()
     if notes:
         for i, d in enumerate(db.loads(notes["decided"])):
             out[f"decided.{i}"] = d
@@ -160,12 +160,10 @@ def run(con, session: dict, args) -> int:
                 con.execute("UPDATE summaries SET nl=NULL WHERE item_id=?", (int(head),))
             else:
                 con.execute(f"UPDATE summaries SET {field}=? WHERE item_id=?", (v, int(head)))
-    notes = con.execute("SELECT decided, notable FROM session_notes WHERE session_id=?", (session["id"],)).fetchone()
+    notes = con.execute("SELECT decided FROM session_notes WHERE session_id=?", (session["id"],)).fetchone()
     if notes and any(not k[0].isdigit() for k in fixed):
         decided = [fixed.get(f"decided.{i}", d) for i, d in enumerate(db.loads(notes["decided"]))]
-        notable = [{**n, "text": fixed.get(f"notable.{i}", n["text"])} for i, n in enumerate(db.loads(notes["notable"]))]
-        con.execute("UPDATE session_notes SET decided=?, notable=? WHERE session_id=?",
-                    (db.dumps([d for d in decided if d]), db.dumps([n for n in notable if n["text"]]), session["id"]))
+        con.execute("UPDATE session_notes SET decided=? WHERE session_id=?", (db.dumps([d for d in decided if d]), session["id"]))
     con.commit()
     print(f"{session['municipality']:<10} {session['date']}  {len(texts)} texts, {len(fixed)} changed, removed: {', '.join(sorted(set(removed))) or 'none'}")
     return 0
