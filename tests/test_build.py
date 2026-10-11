@@ -16,7 +16,8 @@ def _seed(con):
     con.execute("INSERT INTO summaries(item_id,model,content_hash,nl,en,topic,outcome,created_at,discussed) "
                 "VALUES(2,'m','h','Dit punt werd niet teruggevonden in de opname.','Not found.','financiën','onbekend','t',0)")
     for i in range(0, 3600, 10):
-        con.execute("INSERT INTO transcript_segments(session_id,start,end,text,speaker) VALUES('v1',?,?,?,?)", (i, i + 9, f"zin {i}", i // 1800))
+        text = "Dan gaan we over naar de OCMW-raad." if i == 500 else f"zin {i}"
+        con.execute("INSERT INTO transcript_segments(session_id,start,end,text,speaker) VALUES('v1',?,?,?,?)", (i, i + 9, text, i // 1800))
     con.execute("INSERT INTO speaker_turns(session_id,speaker,start,end) VALUES('v1',0,0,1800),('v1',1,1800,3600)")
     con.execute("INSERT INTO speaker_names VALUES('v1',0,'Jos Sypré','CD&V','burgemeester',0.9,'[]')")
     con.execute("INSERT INTO session_notes VALUES('v1','m','h','[\"Notulen goedgekeurd\"]','[]','t')")
@@ -32,6 +33,7 @@ def test_build_writes_expected_json(tmp_db, tmp_path, monkeypatch):
     assert r["sessions"] == 1 and r["items_total"] == 1
     p = json.loads((tmp_path / "data" / "sessions" / "v1.json").read_text(encoding="utf-8"))
     assert p["agenda"][0]["summary"]["nl"].startswith("Notulen") and p["agenda"][2]["start"] is None
+    assert p["agenda"][0]["end"] == 500  # the last placed item stops where the chair opens the OCMW council
     doubtful = next(a for a in p["agenda"] if a["title"] == "Belasting")
     assert doubtful["summary"] is None and doubtful["doubtful"] and doubtful["start"] is None and doubtful["placed_at"] == 600
     assert doubtful["disagreement"] == 200 and p["method"]["disagreements_over_120s"] == 1

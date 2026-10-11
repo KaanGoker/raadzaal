@@ -14,6 +14,12 @@ DISAGREE_S = 120.0
 
 DASH_RE = re.compile("[\u2013\u2014\u2212]")
 NOT_FOUND_RE = re.compile(r"niet (?:terug)?gevonden|niet besproken|komt niet aan bod", re.I)
+# The chair closing the council and opening the OCMW council (raad voor maatschappelijk welzijn), which follows on the
+# same recording. The last agenda item runs to the end of the recording unless this cue cuts it.
+OCMW_RE = re.compile(r"(?:gaan|komen|kunnen) we\s+(?:\w+\s+){0,3}?(?:naar|aan|tot)\s+(?:de|het)\s+(?:ocmw|raad voor maatschappelijk welzijn)"
+                     r"|overgaan naar (?:de|het) (?:ocmw|raad voor maatschappelijk welzijn)"
+                     r"|sluiten we (?:bij deze )?de gemeenteraad|gemeenteraad (?:is )?ten einde", re.I)
+OCMW_MIN_S = 30.0  # the cue must come this long after the item started, or it is the item itself being announced
 
 
 def speller(slug: str):
@@ -70,6 +76,19 @@ def _agenda(con, session_id: str, fix=lambda t: t) -> list[dict]:
     return out
 
 
+def cut_ocmw_tail(agenda: list[dict], transcript: list[list]) -> float | None:
+    """End the last placed item where the chair opens the OCMW council. Returns the cut time, or None."""
+    placed = [a for a in agenda if a["start"] is not None]
+    if not placed:
+        return None
+    last = max(placed, key=lambda a: a["start"])
+    for st, en, text, spk in transcript:
+        if st > last["start"] + OCMW_MIN_S and (last["end"] is None or st < last["end"]) and OCMW_RE.search(text):
+            last["end"] = st
+            return st
+    return None
+
+
 def _speakers(con, session_id: str) -> tuple[list[dict], float]:
     turns = [dict(r) for r in con.execute("SELECT speaker,start,end FROM speaker_turns WHERE session_id=?", (session_id,))]
     tt = diarise.speaking_time(turns)
@@ -97,6 +116,8 @@ def session_payload(con, s: dict) -> dict:
     m = config.municipality(s["municipality"])
     fix = speller(s["municipality"])
     agenda = _agenda(con, s["id"], fix)
+    transcript = _transcript(con, s["id"], fix)
+    cut_ocmw_tail(agenda, transcript)
     spk, attributed = _speakers(con, s["id"])
     notes = con.execute("SELECT decided, notable FROM session_notes WHERE session_id=?", (s["id"],)).fetchone()
     method = "agenda_dp" if any(a["origin"] == "lblod" for a in agenda) else ("llm" if agenda else "none")
@@ -106,7 +127,7 @@ def session_payload(con, s: dict) -> dict:
             "agenda": agenda, "speakers": spk, "attributed_share": attributed,
             "notes": {"decided": [fix(d) for d in db.loads(notes["decided"])] if notes else []},  # "notable" picks partisan lines: not published
             "method": {"alignment": method, "disagreements_over_120s": disagreements},
-            "transcript": _transcript(con, s["id"], fix)}
+            "transcript": transcript}
 
 
 def search_docs(payloads: list[dict]) -> list[dict]:
