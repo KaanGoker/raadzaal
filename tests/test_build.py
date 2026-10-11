@@ -20,7 +20,8 @@ def _seed(con):
         con.execute("INSERT INTO transcript_segments(session_id,start,end,text,speaker) VALUES('v1',?,?,?,?)", (i, i + 9, text, i // 1800))
     con.execute("INSERT INTO speaker_turns(session_id,speaker,start,end) VALUES('v1',0,0,1800),('v1',1,1800,3600)")
     con.execute("INSERT INTO speaker_names VALUES('v1',0,'Jos Sypré','CD&V','burgemeester',0.9,'[]')")
-    con.execute("INSERT INTO session_notes VALUES('v1','m','h','[\"Notulen goedgekeurd\"]','[]','t')")
+    decided = json.dumps(["Notulen goedgekeurd", "Belasting aangenomen", "Rangorde vastgesteld"] + [f"Besluit {i}" for i in range(6)])
+    con.execute("INSERT INTO session_notes VALUES('v1','m','h',?,'[]','t')", (decided,))
     con.commit()
     db.advance(con, "v1", "transcribed")
 
@@ -40,6 +41,7 @@ def test_build_writes_expected_json(tmp_db, tmp_path, monkeypatch):
     assert p["speakers"][0]["name"] == "Jos Sypré" and p["attributed_share"] == 0.5
     assert p["speakers"][0]["label"] == "Jos Sypré" and p["speakers"][1]["label"] == "Spreker 1"
     assert "confidence" not in p["speakers"][0]  # a near-constant score that said nothing about the name
+    assert p["notes"]["decided"] == ["Belasting aangenomen", "Besluit 0", "Besluit 1", "Besluit 2", "Besluit 3"]  # routine lines out, five at most
     idx = json.loads((tmp_path / "data" / "index.json").read_text(encoding="utf-8"))
     assert idx["sessions"][0]["items"] == 1 and idx["municipalities"][0]["slug"] == "haacht"
     docs = json.loads((tmp_path / "data" / "search.json").read_text(encoding="utf-8"))

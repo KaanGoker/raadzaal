@@ -20,6 +20,14 @@ OCMW_RE = re.compile(r"(?:gaan|komen|kunnen) we\s+(?:\w+\s+){0,3}?(?:naar|aan|to
                      r"|overgaan naar (?:de|het) (?:ocmw|raad voor maatschappelijk welzijn)"
                      r"|sluiten we (?:bij deze )?de gemeenteraad|gemeenteraad (?:is )?ten einde", re.I)
 OCMW_MIN_S = 30.0  # the cue must come this long after the item started, or it is the item itself being announced
+# Decisions every meeting takes: approving the minutes, the ranking of the members. Not what a resident opens the page for.
+ROUTINE_RE = re.compile(r"\bnotulen\b|\bverslag\b|\brangorde\b", re.I)
+MAX_DECIDED = 5
+
+
+def headline_decisions(decided: list[str]) -> list[str]:
+    """The session summary without its routine lines, at most MAX_DECIDED of them, in the model's order."""
+    return [d for d in decided if d and not ROUTINE_RE.search(d)][:MAX_DECIDED]
 
 
 def speller(slug: str):
@@ -125,7 +133,7 @@ def session_payload(con, s: dict) -> dict:
     return {"id": s["id"], "municipality": s["municipality"], "municipality_name": m["name"], "date": s["date"], "title": s["title"],
             "duration_s": s["duration_s"], "url": s["url"], "status": s["status"], "lblod_zitting": s["lblod_zitting"],
             "agenda": agenda, "speakers": spk, "attributed_share": attributed,
-            "notes": {"decided": [fix(d) for d in db.loads(notes["decided"])] if notes else []},  # "notable" picks partisan lines: not published
+            "notes": {"decided": headline_decisions([fix(d) for d in db.loads(notes["decided"])]) if notes else []},
             "method": {"alignment": method, "disagreements_over_120s": disagreements},
             "transcript": transcript}
 

@@ -54,7 +54,7 @@ async function viewHome() {
       ${s.decided && s.decided.length ? `<div class="small">${s.decided.map(esc).join(" · ")}</div>` : ""}
       <div class="meta">${fmt(s.duration_s)} opname</div></li>`).join("");
   app.innerHTML = `<h1>Wat zei de raad?</h1>
-    <p class="lead">Gemeenteraden in Vlaanderen, automatisch uitgeschreven en doorzoekbaar. Per agendapunt: wat er gezegd is, wat er beslist is, wie er sprak, en de sprong naar de seconde in de video van de gemeente.</p>
+    <p class="lead">Drie Vlaamse gemeenteraden, automatisch uitgeschreven en doorzoekbaar. Per agendapunt: wat er gezegd is, wat er beslist is, wie sprak hoe lang, en de sprong naar de seconde in de video van de gemeente.</p>
     <form class="search" onsubmit="location.hash='#/zoek?q='+encodeURIComponent(this.q.value);return false;"><input name="q" placeholder="Zoek in alles: fietspad, belasting, zwembad..." aria-label="Zoeken"><button>Zoek</button></form>
     <div class="grid">${munis}</div>
     <h2>Laatste zittingen</h2><ul class="list">${recent}</ul>
