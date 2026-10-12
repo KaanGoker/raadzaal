@@ -97,6 +97,7 @@ Leuven, where I live, is on the list but switched off: its recordings are on the
 - Recordings: the YouTube channels of the municipalities of [Haacht](https://www.youtube.com/channel/UCmmFija7h5J747aoCunqcKA), [Tervuren](https://www.youtube.com/channel/UCDCfiiYOwr5kcjLWx7ZKkvA) and [Beernem](https://www.youtube.com/channel/UCoMUC2B7Slsem4susLdMJiQ).
 - Agendas, vote counts and links to the official files: [Lokaal Beslist](https://lokaalbeslist.vlaanderen.be), Flemish government, through its harvester SPARQL endpoints.
 - Council members, roles and groups: the Flemish [Mandatendatabank](https://data.lblod.info/sparql).
+- The site stores no audio or video. It links to the second in each municipality's own recording and shows the transcript lines; under Belgian copyright law, speeches made in deliberative assemblies such as a municipal council may be freely reproduced and communicated to the public (Code of Economic Law, art. XI.172 §1).
 - Models: [faster-whisper](https://github.com/SYSTRAN/faster-whisper) large-v3-turbo, [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2), Gemini 2.5 Flash Lite.
 
 ## Limits, privacy and removal
