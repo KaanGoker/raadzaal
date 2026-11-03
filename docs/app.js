@@ -6,7 +6,7 @@ const GREY = ["#9a968e", "#7e7a73", "#b4b0a8", "#68655f", "#c8c4bc", "#55524d"];
 const state = {index: null, stats: null, sessions: {}, search: null, docs: null, en: null};
 const CONTACT = "nadirkaangoker@gmail.com";
 const REPO = "https://github.com/KaanGoker/raadzaal";
-const REPO_PUBLIC = false;  // the code links only show once the repository is public
+const REPO_PUBLIC = true;  // the code links only show once the repository is public
 const codeLink = (label, after = "") => REPO_PUBLIC ? `<a href="${REPO}" rel="noopener">${label}</a>${after}` : "";
 const HOME = "https://kaangoker.dev/";
 const app = document.getElementById("app");
