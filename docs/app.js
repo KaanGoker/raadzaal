@@ -13,7 +13,9 @@ const app = document.getElementById("app");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 const fmt = s => { s = Math.max(0, Math.round(s || 0)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return h ? `${h}:${String(m).padStart(2, "0")}:${String(x).padStart(2, "0")}` : `${m}:${String(x).padStart(2, "0")}`; };
 const hours = s => { const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60); return h ? `${h} ${LANG === "en" ? "h" : "u"} ${String(m).padStart(2, "0")}` : `${m} min`; };
-const ytAt = (url, s) => `${url}&t=${Math.max(0, Math.floor(s || 0))}s`;
+const YT = /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/;
+const ytAt = (url, s) => YT.test(url || "") ? `${url}&t=${Math.max(0, Math.floor(s || 0))}s` : "#";
+const safeUrl = u => { try { const x = new URL(u, location.href); return /^https?:$/.test(x.protocol) ? x.href : ""; } catch (e) { return ""; } };  // links from data: http(s) only
 const colorFor = (spk, i) => spk.party && PARTY_COLORS[spk.party] ? PARTY_COLORS[spk.party] : (spk.name ? "#3d3b38" : GREY[i % GREY.length]);
 const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
 
@@ -32,7 +34,7 @@ const tr = t => (EN() && state.en && t && state.en[t]) || t;  // Dutch data line
 
 const MONTHS = {nl: ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
   en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]};
-const date = d => { const [y, m, dd] = d.split("-"); return `${+dd} ${MONTHS[LANG][+m - 1]} ${y}`; };
+const date = d => { const [y, m, dd] = d.split("-"); return `${+dd} ${MONTHS[LANG][+m - 1]} ${+y}`; };
 const TOPICS_EN = {"mobiliteit": "mobility", "ruimtelijke ordening": "spatial planning", "financiën": "finance", "wonen": "housing",
   "milieu en klimaat": "environment and climate", "onderwijs en jeugd": "education and youth", "welzijn en zorg": "welfare and care",
   "cultuur en sport": "culture and sport", "veiligheid": "safety", "economie en handel": "economy and trade",
@@ -57,7 +59,7 @@ const T = {
     pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
     notice: `<b>Demoproject.</b> Alles op deze site is automatisch gemaakt door AI en door niemand nagekeken: transcripten, samenvattingen, citaten, stemmingen en ook de namen van sprekers kunnen fout zijn. Dit is geen officieel verslag. Controleer alles in de video van de gemeente voor u het overneemt. <a href="#/methode">Grenzen van deze site</a>`,
     all: "Alle", minutes_total: m => `${m} minuten in totaal`,
-    search_ph: "Bv. fietspad of zwembad", search_btn: "Zoek",
+    search_ph: "Bv. fietspad of afval", search_btn: "Zoek",
     municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`,
     sessions_w: n => n === 1 ? "zitting" : "zittingen", hours_w: "uur", num: h => String(h).replace(".", ","),
     items: n => plural(n, "punt", "punten"),
@@ -91,7 +93,7 @@ const T = {
     pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
     notice: `<b>Demo project.</b> Everything on this site was made automatically by AI and checked by nobody: transcripts, summaries, quotes, votes and even the speakers' names can be wrong. This is not an official record. Check everything against the municipality's video before you repeat it. <a href="#/methode">Limits of this site</a>`,
     all: "All", minutes_total: m => `${m} minutes in total`,
-    search_ph: "E.g. bike path or swimming pool", search_btn: "Search",
+    search_ph: "E.g. bike path or waste", search_btn: "Search",
     municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`,
     sessions_w: n => n === 1 ? "meeting" : "meetings", hours_w: "hours", num: h => String(h),
     items: n => plural(n, "item", "items"),
@@ -142,12 +144,12 @@ const SITE = "Wat zei de raad?";
 const setTitle = s => { document.title = s ? `${s} | ${SITE}` : SITE; };
 const decode = s => { try { return decodeURIComponent(s); } catch (e) { return s; } };
 const ICON_SEARCH = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>`;
-const searchForm = (q = "", autofocus = false) => `<form class="search" role="search" onsubmit="location.hash='#/zoek?q='+encodeURIComponent(this.q.value);return false;"><label>${ICON_SEARCH}<input name="q" type="search" value="${esc(q)}" placeholder="${esc(t("search_ph"))}" aria-label="${t("search_h")}"${autofocus ? " autofocus" : ""}></label><button>${t("search_btn")}</button></form>`;
+const searchForm = (q = "", autofocus = false) => `<form class="search" role="search"><label>${ICON_SEARCH}<input name="q" type="search" value="${esc(q)}" placeholder="${esc(t("search_ph"))}" aria-label="${t("search_h")}"${autofocus ? " autofocus" : ""}></label><button>${t("search_btn")}</button></form>`;
 
 function chrome() {
   document.documentElement.lang = LANG;
   document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a>${codeLink(t("nav_code"))}<a href="${HOME}">Kaan Goker</a>`
-    + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" onclick="return switchLang()">${t("switch")}</a>`;
+    + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" >${t("switch")}</a>`;
   document.getElementById("banner").innerHTML = `<p class="notice" role="note">${t("notice")}</p>`;
   document.getElementById("foot").innerHTML = `<h2>${t("foot_h")}</h2><ul>${t("foot").map(x => `<li>${x}</li>`).join("")}</ul><p class="links">${t("foot_links")}</p>`;
 }
@@ -167,7 +169,7 @@ function route() {
   window.scrollTo(0, 0);
   setTitle("");
   document.getElementById("banner").hidden = !/^#\/(s|zoek|methode|g)\b/.test(h);  // the home page has the disclaimer in its footer only
-  const m = h.match(/^#\/s\/([^/?]+)/);
+  const m = h.match(/^#\/s\/([A-Za-z0-9_-]{11})(?=$|[/?])/);
   if (m) return viewSession(m[1]);
   if (h.startsWith("#/zoek")) return viewSearch(decode(h.split("?q=")[1] || ""));
   if (h.startsWith("#/methode")) return viewMethod();
@@ -199,7 +201,7 @@ function topicPanel(idx, st, slug) {
   const data = slug ? by[slug] : st.topic_minutes;
   const total = Object.values(data || {}).reduce((x, v) => x + v, 0);
   const chips = by ? `<div class="chips" role="group" aria-label="${esc(t("municipalities"))}">${[["", t("all")], ...idx.municipalities.map(m => [m.slug, m.name])].map(([k, n]) =>
-      `<button type="button" aria-pressed="${k === slug}" onclick="topicPanel(state.index, state.stats, '${k}')">${esc(n)}</button>`).join("")}</div>` : "";
+      `<button type="button" aria-pressed="${k === slug}" data-muni="${esc(k)}">${esc(n)}</button>`).join("")}</div>` : "";
   document.getElementById("topics").innerHTML = chips + topicBars(data) + (total ? `<p class="meta">${t("minutes_total")(total)}</p>` : "");
 }
 
@@ -237,7 +239,7 @@ async function viewSession(id) {
     const lines = placed ? p.transcript.filter(x => x[1] >= a.start && x[0] <= a.end).map(x => `<p><a class="t" href="${ytAt(p.url, x[0])}" rel="noopener">${fmt(x[0])}</a><span class="who">${esc(label(x[3]))}</span>${esc(x[2])}</p>`).join("") : "";
     const quoteEn = sm && sm.quote && EN() && tr(sm.quote) !== sm.quote ? `<br><span class="small muted">${esc(tr(sm.quote))} (${t("translation")})</span>` : "";
     const facts = [sm && sm.topic ? esc(topic(sm.topic)) : "", a.votes ? t("votes")(a.votes) : "", sm && sm.raised_by ? t("raised_by")(esc(sm.raised_by)) : "",
-      a.source_url ? `<a href="${esc(a.source_url)}" rel="noopener">${t("dossier")}</a>` : ""].filter(Boolean).join(" · ");
+      safeUrl(a.source_url) ? `<a href="${esc(safeUrl(a.source_url))}" rel="noopener">${t("dossier")}</a>` : ""].filter(Boolean).join(" · ");
     const body = `<div class="body">
         ${sm ? `<p>${esc(tr(sm.nl))}</p>` : ""}
         ${!placed ? `<p class="muted">${a.doubtful ? t("doubtful") : t("not_found_item")}</p>` : ""}
@@ -258,7 +260,7 @@ async function viewSession(id) {
     <div class="legend">${slices.map(x => `<span><i style="background:${x.color}"></i>${esc(x.text)} ${fmt(x.sec)}</span>`).join("")}</div>`;
   const decided = p.notes.decided && p.notes.decided.length ? `<h2>${t("decided")}</h2><ul class="decided">${p.notes.decided.map(d => `<li>${esc(tr(d))}</li>`).join("")}</ul>` : "";
   app.innerHTML = `<h1>${esc(t("council")(p.municipality_name))}<br><span class="muted">${date(p.date)}</span></h1>
-    <p class="meta"><a href="#/g/${p.municipality}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(p.url)}" rel="noopener">${t("video")}</a>${p.lblod_zitting ? ` · <a href="${esc(p.lblod_zitting.replace("/id/zittingen/", "/raadpleegomgeving/zittingen/"))}" rel="noopener">${t("official")}</a>` : ""}</p>
+    <p class="meta"><a href="#/g/${esc(p.municipality)}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(ytAt(p.url, 0))}" rel="noopener">${t("video")}</a>${safeUrl(p.lblod_zitting) ? ` · <a href="${esc(safeUrl(p.lblod_zitting.replace("/id/zittingen/", "/raadpleegomgeving/zittingen/")))}" rel="noopener">${t("official")}</a>` : ""}</p>
     ${decided}
     <h2>${t("agenda")}</h2><div class="agenda">${items}</div>
     <h2>${t("who_h")}</h2>${bar}<p class="meta">${t("who_note")(Math.round(100 * p.attributed_share))}</p>`;
@@ -275,15 +277,17 @@ async function viewSearch(q) {
   const all = ms.search(q), hits = all.slice(0, 60);
   const idx = await loadIndex();
   const urlOf = sid => (idx.sessions.find(s => s.id === sid) || {}).url || "";
-  const rx = new RegExp("(" + q.split(/\s+/).filter(Boolean).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "ig");
+  const words = q.split(/\s+/).filter(Boolean);
+  const rx = words.length ? new RegExp("(" + words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "ig") : null;
+  const hl = s => rx ? s.split(rx).map((x, i) => i % 2 ? `<mark>${esc(x)}</mark>` : esc(x)).join("") : esc(s);  // mark first, escape each piece
   const snippet = s => {  // about 240 characters around the first hit, cut at word boundaries
     const i = Math.max(0, s.search(rx)); let from = i > 90 ? s.indexOf(" ", i - 90) + 1 : 0; let to = s.lastIndexOf(" ", from + 240);
     if (to <= i || from + 240 >= s.length) to = s.length;
-    return (from ? "... " : "") + esc(s.slice(from, to)).replace(rx, "<mark>$1</mark>") + (to < s.length ? " ..." : ""); };
+    return (from ? "... " : "") + hl(s.slice(from, to)) + (to < s.length ? " ..." : ""); };
   // in English an agenda hit shows its English title and summary; a transcript hit stays Dutch
   const textOf = h => { if (!EN() || h.type !== "item") return h.text; const rest = h.text.startsWith(h.title) ? h.text.slice(h.title.length).trim() : ""; return rest ? tr(rest) : tr(h.title); };
   res.innerHTML = hits.length ? `<p class="meta">${t("hits")(all.length, hits.length)}</p><ul class="rows">` + hits.map(h => `<li class="hit"><span class="main">
-      ${h.title ? `<a class="hit-title" href="#/s/${h.session}">${esc(tr(h.title)).replace(rx, "<mark>$1</mark>")}</a>` : `<a href="#/s/${h.session}">${t("type_transcript")}</a>`}
+      ${h.title ? `<a class="hit-title" href="#/s/${esc(h.session)}">${hl(tr(h.title))}</a>` : `<a href="#/s/${esc(h.session)}">${t("type_transcript")}</a>`}
       <div class="small"${h.type === "item" && EN() ? "" : ' lang="nl"'}>${snippet(textOf(h))}</div></span>
       <span class="side">${esc(h.municipality)}, ${date(h.date)} · <a href="${ytAt(urlOf(h.session), h.start)}" rel="noopener">${fmt(h.start)}</a></span></li>`).join("") + "</ul>" : `<p class="muted">${t("nothing")}</p>`;
 }
@@ -354,4 +358,14 @@ async function viewMethod() {
 
 chrome();
 addEventListener("hashchange", route);
+// one listener per event instead of inline handlers, so the page runs under a strict CSP
+document.addEventListener("submit", e => {
+  const f = e.target.closest("form.search"); if (!f) return;
+  e.preventDefault(); location.hash = "#/zoek?q=" + encodeURIComponent(f.q.value);
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-muni]");
+  if (b) return topicPanel(state.index, state.stats, b.dataset.muni);
+  if (e.target.closest("a.lang")) { e.preventDefault(); switchLang(); }
+});
 route();

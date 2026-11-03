@@ -93,6 +93,11 @@ def position_from_title(title: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
+def web_url(u):
+    """Only http(s) links from the harvester reach the site."""
+    return u if isinstance(u, str) and u.startswith(("https://", "http://")) else None
+
+
 def order_items(rows: list[dict]) -> list[dict]:
     """One item per agendapunt, ordered by title number, then by the gebeurtNa chain, then by title."""
     items: dict[str, dict] = {}
@@ -100,7 +105,7 @@ def order_items(rows: list[dict]) -> list[dict]:
     for r in rows:
         it = items.setdefault(r["ap"], {"lblod_uri": r["ap"], "title": (r.get("title") or "(zonder titel)").strip(),
                                          "public": r.get("public", "true") in ("true", "1"),
-                                         "source_url": r.get("source"), "beh": r.get("beh"),
+                                         "source_url": web_url(r.get("source")), "beh": r.get("beh"),
                                          "votes_for": None, "votes_against": None, "abstentions": None, "outcome": None})
         if r.get("vfor") is not None and it["votes_for"] is None:
             it.update(votes_for=int(r["vfor"]), votes_against=int(r.get("vagainst") or 0),
@@ -147,7 +152,7 @@ def attach(con, m: dict, session: dict) -> int:
             "VALUES(?,?,?,?,?,?,?,?,?,?,'lblod')",
             (session["id"], it["position"], it["title"], int(it["public"]), it["lblod_uri"], it["source_url"],
              it["votes_for"], it["votes_against"], it["abstentions"], it["outcome"]))
-    con.execute("UPDATE sessions SET lblod_zitting=?, updated_at=? WHERE id=?", (z["z"], db.now(), session["id"]))
+    con.execute("UPDATE sessions SET lblod_zitting=?, updated_at=? WHERE id=?", (web_url(z["z"]), db.now(), session["id"]))
     con.commit()
     return len(items)
 

@@ -46,3 +46,10 @@ def test_local_date_handles_offsets():
 def test_find_zitting_none_without_rows(monkeypatch):
     monkeypatch.setattr(agenda, "zittingen", lambda m, a, b: [])
     assert agenda.find_zitting({"lblod_harvester": 0, "lblod_label": "X", "lblod_org": "Y"}, "2026-01-01") is None
+
+
+def test_web_url_keeps_only_http_links():
+    from raadzaal.agenda import web_url
+    assert web_url("https://beernem-echo.cipalschaubroeck.be/id/zittingen/x") == "https://beernem-echo.cipalschaubroeck.be/id/zittingen/x"
+    assert web_url("javascript:alert(1)") is None
+    assert web_url(None) is None
