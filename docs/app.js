@@ -166,6 +166,7 @@ function route() {
   const h = location.hash || "#/";
   window.scrollTo(0, 0);
   setTitle("");
+  document.getElementById("banner").hidden = !/^#\/(s|zoek|methode|g)\b/.test(h);  // the home page has the disclaimer in its footer only
   const m = h.match(/^#\/s\/([^/?]+)/);
   if (m) return viewSession(m[1]);
   if (h.startsWith("#/zoek")) return viewSearch(decode(h.split("?q=")[1] || ""));
