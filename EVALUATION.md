@@ -31,11 +31,11 @@ Tuned on ten minutes of Beernem where five people were labelled by what they sai
 | ERes2Net, threshold 0.7 | 0.94 |
 | ERes2Net 0.7 plus the cluster merge at 0.4 | 0.96 |
 
-Transcription runs at 5 to 20% of real time on an RTX 3070 Ti laptop GPU, and speaker separation at about half of real time on the CPU. The whole set uses three or four Gemini free-tier calls per meeting.
+Transcription runs at 5 to 20% of real time on an RTX 3070 Ti laptop GPU, and speaker separation at about half of real time on the CPU. Each meeting takes three Gemini free-tier calls for placement, summaries and decisions, plus one name-check call per 25 texts, one call per questions round for the topics, and the English translation in batches of 50 texts.
 
 ## Speaker names
 
-3 of 18 name assignments are backed by a direct cue quoted from the transcript and are shown; the rest are not shown. Names were not checked by ear.
+3 of the 18 name assignments that rest on a spoken cue are backed by a direct cue and shown; 8 more rest only on the chair detection or an agenda title. None of the rest is shown. Names were not checked by ear.
 
 A cluster becomes a candidate when one council member wins at least two cues and beats the runner-up two to one. DIRECT means one of those cues is a transcript line that gives the floor to, thanks, or introduces the member with an explicit phrase; INDIRECT means the cues are a bare name as vocative ("Patricia.", "Ja, Lode."), the chair detection, or the name in an agenda title. Only DIRECT names are published; the others are listed here so the rule can be checked. The time links to that second in the municipality's video.
 
@@ -97,24 +97,24 @@ Many chairs give the floor without saying a name ("ik geef u graag het woord"), 
 | Tervuren | 3 | 5.8 | 52 | 52 | 6% |
 | Beernem | 7 | 14.8 | 96 | 96 | 4% |
 
-## Minutes per topic (summarised items)
+## Minutes per topic (summarised items; a questions round is split into 2-minute windows, as on the site)
 
 | Topic | Minutes |
 |---|---|
-| nutsvoorzieningen en afval | 178 |
-| andere | 158 |
-| veiligheid | 138 |
-| ruimtelijke ordening | 132 |
-| onderwijs en jeugd | 116 |
+| nutsvoorzieningen en afval | 193 |
+| mobiliteit | 173 |
+| onderwijs en jeugd | 151 |
+| ruimtelijke ordening | 139 |
+| cultuur en sport | 116 |
+| milieu en klimaat | 115 |
 | wonen | 111 |
 | financiën | 107 |
-| milieu en klimaat | 104 |
-| mobiliteit | 96 |
-| cultuur en sport | 93 |
-| participatie en bestuur | 84 |
+| participatie en bestuur | 102 |
+| veiligheid | 93 |
 | personeel en organisatie | 47 |
-| welzijn en zorg | 19 |
-| economie en handel | 7 |
+| welzijn en zorg | 27 |
+| economie en handel | 14 |
+| andere | 4 |
 
 Share of the placed time spent on questions, proposals and interpellations from council members: 31%. The last item of a meeting ends where the chair opens the OCMW council, so that part of the recording is not counted.
 
@@ -145,4 +145,4 @@ Share of the placed time spent on questions, proposals and interpellations from 
 
 ## Method
 
-Audio from the municipality's own YouTube channel. Transcription with faster-whisper large-v3-turbo (Dutch, VAD, word timestamps). Speaker turns from sherpa-onnx (pyannote segmentation 3.0 and 3D-Speaker embeddings). Agenda and vote counts from the Lokaal Beslist harvester SPARQL endpoints where the municipality is harvested. A Gemini reading of the transcript says where each item is announced, and those starts are kept as anchors; the remaining items are placed by a monotone alignment of the agenda titles to 45-second transcript windows (multilingual MiniLM embeddings plus spoken cues); for municipalities without an official agenda the Gemini reading is the only source. Summaries by Gemini 2.5 Flash Lite, verified: a quote must exist in the transcript, and a person is named only when they are on the council list or in the agenda title. A second pass replaces anyone else who is still named in a summary by a role; how many names that pass removed is not recorded.
+Audio from the municipality's own YouTube channel. Transcription with faster-whisper large-v3-turbo (Dutch, VAD, word timestamps). Speaker turns from sherpa-onnx (pyannote segmentation 3.0 and 3D-Speaker embeddings). Agenda and vote counts from the Lokaal Beslist harvester SPARQL endpoints where the municipality is harvested. A Gemini reading of the transcript says where each item is announced, and those starts are kept as anchors; the remaining items are placed by a monotone alignment of the agenda titles to 45-second transcript windows (multilingual MiniLM embeddings plus spoken cues); for municipalities without an official agenda the Gemini reading is the only source. Summaries by Gemini 2.5 Flash Lite (2.5 Flash as fallback), verified: a quote must exist in the transcript, and a person is named only when they are on the council list or in the agenda title. A second pass replaces anyone else who is still named in a summary by a role; how many names that pass removed is not recorded.

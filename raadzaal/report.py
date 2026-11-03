@@ -25,8 +25,9 @@ def names_section(names: list[dict], index: dict) -> list[str]:
     assigned = [n for n in names if set(db.loads(n["cues"]) or []) & SPOKEN_CUES]
     shown = [n for n in assigned if n["direct"]]
     L = ["## Speaker names", "",
-         f"{len(shown)} of {len(assigned)} name assignments are backed by a direct cue quoted from the transcript and are shown; "
-         "the rest are not shown. Names were not checked by ear.", "",
+         f"{len(shown)} of the {len(assigned)} name assignments that rest on a spoken cue are backed by a direct cue and shown; "
+         f"{len(names) - len(assigned)} more rest only on the chair detection or an agenda title. None of the rest is shown. "
+         "Names were not checked by ear.", "",
          "A cluster becomes a candidate when one council member wins at least two cues and beats the runner-up two to one. "
          "DIRECT means one of those cues is a transcript line that gives the floor to, thanks, or introduces the member with an "
          "explicit phrase; INDIRECT means the cues are a bare name as vocative (\"Patricia.\", \"Ja, Lode.\"), the chair detection, "
@@ -76,7 +77,7 @@ def render(index: dict, stats: dict, sessions: list[dict], eval_lines: list[str]
           "| CAM++ embeddings, best threshold | 0.68 |", "| ERes2Net, threshold 0.7 | 0.94 |",
           "| ERes2Net 0.7 plus the cluster merge at 0.4 | 0.96 |", "",
           "Transcription runs at 5 to 20% of real time on an RTX 3070 Ti laptop GPU, and speaker separation at about half of "
-          "real time on the CPU. The whole set uses three or four Gemini free-tier calls per meeting.", ""]
+          "real time on the CPU. Each meeting takes three Gemini free-tier calls for placement, summaries and decisions, plus one name-check call per 25 texts, one call per questions round for the topics, and the English translation in batches of 50 texts.", ""]
 
     L += names_section(names or [], index)
     L += ["Many chairs give the floor without saying a name (\"ik geef u graag het woord\"), and one person can still be split "
@@ -94,7 +95,7 @@ def render(index: dict, stats: dict, sessions: list[dict], eval_lines: list[str]
         st = stats["municipalities"].get(m["slug"], {})
         L.append(f"| {m['name']} | {m['sessions']} | {m['hours']} | {st.get('items', 0)} | {st.get('summarised', 0)} | {st.get('attributed_share', 0):.0%} |")
 
-    L += ["", "## Minutes per topic (summarised items)", "", "| Topic | Minutes |", "|---|---|"]
+    L += ["", "## Minutes per topic (summarised items; a questions round is split into 2-minute windows, as on the site)", "", "| Topic | Minutes |", "|---|---|"]
     for k, v in stats["topic_minutes"].items():
         L.append(f"| {k} | {v} |")
     L += ["", f"Share of the placed time spent on questions, proposals and interpellations from council members: {stats['questions_share']:.0%}. "
@@ -112,7 +113,7 @@ def render(index: dict, stats: dict, sessions: list[dict], eval_lines: list[str]
           "Speaker turns from sherpa-onnx (pyannote segmentation 3.0 and 3D-Speaker embeddings). Agenda and vote counts from the Lokaal Beslist "
           "harvester SPARQL endpoints where the municipality is harvested. A Gemini reading of the transcript says where each item is announced, and those starts are kept as anchors; "
           "the remaining items are placed by a monotone alignment of the agenda titles to 45-second transcript windows (multilingual MiniLM embeddings plus spoken cues); "
-          "for municipalities without an official agenda the Gemini reading is the only source. Summaries by Gemini 2.5 Flash Lite, verified: a quote must "
+          "for municipalities without an official agenda the Gemini reading is the only source. Summaries by Gemini 2.5 Flash Lite (2.5 Flash as fallback), verified: a quote must "
           "exist in the transcript, and a person is named only when they are on the council list or in the agenda title. A second pass "
           "replaces anyone else who is still named in a summary by a role; how many names that pass removed is not recorded.", ""]
     return "\n".join(L)

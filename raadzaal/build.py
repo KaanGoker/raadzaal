@@ -40,12 +40,16 @@ def speller(slug: str):
     """Fix the recurring speech-recognition errors listed under `spelling` in municipalities.yaml (whole words only)."""
     fixes = (config.municipality(slug).get("spelling") or {})
     rx = re.compile(r"\b(" + "|".join(re.escape(k) for k in sorted(fixes, key=len, reverse=True)) + r")\b") if fixes else None
+    redact = [(re.compile(k), v) for k, v in (config.municipality(slug).get("redact") or {}).items()]
 
     def fix(t):
         if not isinstance(t, str):
             return t
         t = DASH_RE.sub("-", t)  # official titles use en dashes; the site keeps to plain hyphens
-        return rx.sub(lambda m: fixes[m.group(1)], t) if rx else t
+        t = rx.sub(lambda m: fixes[m.group(1)], t) if rx else t
+        for r, v in redact:  # names of people not on the council, private details: see `redact` in municipalities.yaml
+            t = r.sub(v, t)
+        return t
     return fix
 
 

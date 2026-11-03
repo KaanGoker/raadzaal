@@ -4,7 +4,7 @@
 
 Wat zei de raad? turns the council recordings of three Flemish municipalities (14 meetings, 26 hours) into one page per agenda item: a summary checked against the transcript, the official vote, who spoke how long, and the exact second in the municipality's own video. Speech recognition, speaker diarization and LLM summaries, each verified against the transcript or the open data before anything is shown. It is a demo: nobody checked the output by hand, so the municipality's video stays the source.
 
-**Built with:** Python 3.12, faster-whisper (large-v3-turbo), sherpa-onnx with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, sentence-transformers (multilingual MiniLM), Gemini 2.5 Flash Lite and 2.5 Flash, SQLite, SPARQL on Lokaal Beslist and the Mandatendatabank, MiniSearch, a static site on GitHub Pages.
+**Built with:** Python 3.12, faster-whisper (large-v3-turbo), sherpa-onnx with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, sentence-transformers (multilingual MiniLM), Gemini 2.5 Flash Lite and 2.5 Flash (Gemini 3 Flash preview for the name check), SQLite, SPARQL on Lokaal Beslist and the Mandatendatabank, MiniSearch, a static site on GitHub Pages.
 
 **Site:** [kaangoker.dev/raadzaal](https://kaangoker.dev/raadzaal/) (Dutch and English) · **Numbers:** [EVALUATION.md](EVALUATION.md)
 
@@ -46,7 +46,7 @@ Where each agenda item starts, compared with 44 starts labelled by hand from the
 
 Speaker separation reaches a balanced F-score of 0.96 on ten hand-labelled minutes of Beernem (purity and inverse purity, ERes2Net embeddings with a second clustering pass).
 
-Naming speakers is the weak part. 3 of 18 name assignments are backed by a direct cue quoted from the transcript and are shown; the rest are not shown. Names were not checked by ear. Most chairs give the floor with a bare first name or no name at all, so most speaking time stays unnamed and every session page says what share got a name.
+Naming speakers is the weak part. 3 of the 18 name assignments that rest on a spoken cue are backed by a direct cue and shown; 8 more rest only on the chair detection or an agenda title. None of the rest is shown. Names were not checked by ear. Most chairs give the floor with a bare first name or no name at all, so most speaking time stays unnamed and every session page says what share got a name.
 
 The full tables, the per-session numbers and the transcript line behind every name are in [EVALUATION.md](EVALUATION.md).
 
@@ -64,7 +64,7 @@ diarise       sherpa-onnx in 45-minute chunks
 regroup       one voice embedding per cluster, clusters with the same voice merged
 align         Gemini reading as anchors, embedding alignment in between, LLM-only without an agenda
 speakers      handover, thanks and self-introduction cues; a direct cue plus a second one
-summarise     one Gemini call per meeting, quote, name and placement checks
+summarise     one Gemini call per meeting plus one for the decisions, quote, name and placement checks
 names         second pass: anyone in a summary who is not on the council is replaced by a role
 build         docs/data: index, one JSON per meeting, search corpus, stats
 translate     docs/data/en.json: titles, summaries, quotes and decisions in English, keyed by the Dutch text
@@ -103,16 +103,16 @@ Leuven, where I live, is on the list but switched off. Its recordings sit on a w
 - Recordings: the YouTube channels of the municipalities of [Haacht](https://www.youtube.com/channel/UCmmFija7h5J747aoCunqcKA), [Tervuren](https://www.youtube.com/channel/UCDCfiiYOwr5kcjLWx7ZKkvA) and [Beernem](https://www.youtube.com/channel/UCoMUC2B7Slsem4susLdMJiQ).
 - Agendas, vote counts and links to the official files: [Lokaal Beslist](https://lokaalbeslist.vlaanderen.be), Flemish government, through its harvester SPARQL endpoints.
 - Council members, roles and groups: the Flemish [Mandatendatabank](https://data.lblod.info/sparql).
-- The site stores no audio or video. It links to the second in each municipality's own recording and shows the transcript lines; under Belgian copyright law, speeches made in deliberative assemblies such as a municipal council may be freely reproduced and communicated to the public (Code of Economic Law, art. XI.172 §1).
-- Models: [faster-whisper](https://github.com/SYSTRAN/faster-whisper) large-v3-turbo, [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2), Gemini 2.5 Flash Lite and 2.5 Flash.
+- The site stores no audio or video. It links to the second in each municipality's own recording and shows the transcript lines; under Belgian copyright law, speeches made in meetings of representative bodies such as a municipal council may be freely reproduced and communicated to the public (Code of Economic Law, art. XI.172 §1).
+- Models: [faster-whisper](https://github.com/SYSTRAN/faster-whisper) large-v3-turbo, [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2), Gemini 2.5 Flash Lite and 2.5 Flash, Gemini 3 Flash preview for the name check.
 
 ## Limits, privacy and removal
 
 This is a demo project. Everything is made automatically and nobody checked it by hand: transcripts, summaries, quotes, votes and speaker names can all be wrong, and a statement can end up next to the wrong name. Speech recognition makes more mistakes with dialect, bad microphones and people talking over each other.
 
-The site is not an official record. The municipality's video and minutes are the source, and a warning at the top of every page says so. Only public meetings that a municipality published itself are used, and only agenda items marked public. Only council members, the mayor and the aldermen are named, never citizens or municipal staff. The transcript is verbatim, so it holds whatever was said in the room.
+The site is not an official record. The municipality's video and minutes are the source, and a warning on every page says so (at the top, or in the footer on the home page). Only public meetings that a municipality published itself are used, and only agenda items marked public get a summary. Only council members, the mayor and the aldermen are named as speakers or in summaries. The transcript is verbatim, so it can hold other names said in the room; names of people who are not on the council and private details are replaced by [naam] or [weggelaten] through the `redact` list in `municipalities.yaml`, as soon as I find them or someone asks.
 
-If something on the site should not be there, mail nadirkaangoker@gmail.com or open an issue, and I will fix it or take it down.
+The privacy page on the site names the controller, the legal basis and how to ask for access or removal. If something on the site should not be there, mail nadirkaangoker@gmail.com or open an issue, and I will fix it or take it down.
 
 ## License
 

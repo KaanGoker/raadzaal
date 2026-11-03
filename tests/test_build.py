@@ -55,3 +55,10 @@ def test_build_writes_expected_json(tmp_db, tmp_path, monkeypatch):
     assert "party_minutes" not in st["municipalities"]["beernem"] and st["municipalities"]["beernem"]["attributed_share"] == 0.5
     text = report.render(idx, st, [p])
     assert "| Beernem | 1 |" in text and "Belasting" in text
+
+
+def test_speller_redacts_after_fixing_spelling(monkeypatch):
+    from raadzaal import build, config
+    monkeypatch.setattr(config, "municipality", lambda slug: {"spelling": {"Haagd": "Haacht"}, "redact": {"Jan Proef\\w*": "[naam]"}})
+    fix = build.speller("x")
+    assert fix("In Haagd sprak Jan Proefmans.") == "In Haacht sprak [naam]."

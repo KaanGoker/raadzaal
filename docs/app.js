@@ -6,7 +6,7 @@ const GREY = ["#9a968e", "#7e7a73", "#b4b0a8", "#68655f", "#c8c4bc", "#55524d"];
 const state = {index: null, stats: null, sessions: {}, search: null, docs: null, en: null};
 const CONTACT = "nadirkaangoker@gmail.com";
 const REPO = "https://github.com/KaanGoker/raadzaal";
-const REPO_PUBLIC = true;  // the code links only show once the repository is public
+const REPO_PUBLIC = true;  // set to false to hide the code links
 const codeLink = (label, after = "") => REPO_PUBLIC ? `<a href="${REPO}" rel="noopener">${label}</a>${after}` : "";
 const HOME = "https://kaangoker.dev/";
 const app = document.getElementById("app");
@@ -53,9 +53,9 @@ const T = {
       "Alles is automatisch gemaakt door AI en niet nagekeken. Er staan fouten in.",
       "Dit is geen officieel verslag. De video en de notulen van de gemeente zijn de bron.",
       "Controleer een citaat of samenvatting in de video voor u het overneemt.",
-      "Alleen gemeenteraadsleden, de burgemeester en de schepenen krijgen een naam, nooit burgers of gemeentepersoneel. Ook die namen kunnen fout zijn.",
+      "Alleen gemeenteraadsleden, de burgemeester en de schepenen krijgen een naam als spreker. Ook die namen kunnen fout zijn. Andere namen die in de zaal vielen, haal ik uit het transcript zodra ik ze vind of u erom vraagt.",
       `Een fout gezien of wilt u iets laten verwijderen? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. Ik pas het aan of haal het weg.`],
-    foot_links: `<a href="#/methode">Methode</a> · ${codeLink("Code", " · ")}Een project van <a href="${HOME}">Kaan Goker</a>`,
+    foot_links: `<a href="#/methode">Methode</a> · <a href="#/privacy">Privacy</a> · ${codeLink("Code", " · ")}Een project van <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
     notice: `<b>Demoproject.</b> Alles op deze site is automatisch gemaakt door AI en door niemand nagekeken: transcripten, samenvattingen, citaten, stemmingen en ook de namen van sprekers kunnen fout zijn. Dit is geen officieel verslag. Controleer alles in de video van de gemeente voor u het overneemt. <a href="#/methode">Grenzen van deze site</a>`,
     all: "Alle", minutes_total: m => `${m} minuten in totaal`,
@@ -87,9 +87,9 @@ const T = {
       "Everything is made automatically by AI and not checked. It contains errors.",
       "This is not an official record. The municipality's video and minutes are the source.",
       "Check a quote or summary against the video before you repeat it.",
-      "Only council members, the mayor and the aldermen are named, never citizens or municipal staff. Those names can be wrong too.",
+      "Only council members, the mayor and the aldermen are named as speakers. Those names can be wrong too. Other names said in the room come out of the transcript as soon as I find them or you ask.",
       `Seen a mistake, or want something removed? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. I will fix it or take it down.`],
-    foot_links: `<a href="#/methode">Method</a> · ${codeLink("Code", " · ")}A project by <a href="${HOME}">Kaan Goker</a>`,
+    foot_links: `<a href="#/methode">Method</a> · <a href="#/privacy">Privacy</a> · ${codeLink("Code", " · ")}A project by <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
     notice: `<b>Demo project.</b> Everything on this site was made automatically by AI and checked by nobody: transcripts, summaries, quotes, votes and even the speakers' names can be wrong. This is not an official record. Check everything against the municipality's video before you repeat it. <a href="#/methode">Limits of this site</a>`,
     all: "All", minutes_total: m => `${m} minutes in total`,
@@ -168,11 +168,12 @@ function route() {
   const h = location.hash || "#/";
   window.scrollTo(0, 0);
   setTitle("");
-  document.getElementById("banner").hidden = !/^#\/(s|zoek|methode|g)\b/.test(h);  // the home page has the disclaimer in its footer only
+  document.getElementById("banner").hidden = !/^#\/(s|zoek|methode|privacy|g)\b/.test(h);  // the home page has the disclaimer in its footer only
   const m = h.match(/^#\/s\/([A-Za-z0-9_-]{11})(?=$|[/?])/);
   if (m) return viewSession(m[1]);
   if (h.startsWith("#/zoek")) return viewSearch(decode(h.split("?q=")[1] || ""));
   if (h.startsWith("#/methode")) return viewMethod();
+  if (h.startsWith("#/privacy")) return viewPrivacy();
   const g = h.match(/^#\/g\/([^/?]+)/);
   if (g) return viewMunicipality(g[1]);
   return viewHome();
@@ -307,20 +308,22 @@ const METHOD = {
     <li>Niemand heeft de opnames herbeluisterd. Niemand heeft de samenvattingen, citaten, stemmingen of namen manueel nagekeken. Ik deed alleen enkele steekproeven.</li>
     <li>De transcripties zijn woordelijk en automatisch. Er staan herkenningsfouten en verkeerd verstane namen in, en ook wat in de zaal over anderen gezegd werd.</li>
     <li>Een samenvatting of citaat kan iemand verkeerd voorstellen. Wilt u iets overnemen of doorvertellen? Controleer het dan eerst in de video van de gemeente.</li>
-    <li>Ik noem alleen gemeenteraadsleden, de burgemeester en de schepenen, als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam.</li>
+    <li>Als spreker noem ik alleen gemeenteraadsleden, de burgemeester en de schepenen, als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam in de samenvattingen. Het woordelijke transcript kan wel namen bevatten die in de zaal vielen; die haal ik weg zodra ik ze vind of u erom vraagt.</li>
     <li>Ook de namen kunnen fout zijn. Welke stem bij welke naam hoort, wordt automatisch bepaald en niet nagekeken. Een uitspraak kan dus bij de verkeerde persoon staan.</li>
     <li>Dit is een onafhankelijk, niet-commercieel project en geen officieel verslag. De officiële bronnen zijn de video van de gemeente en haar besluitenlijst en notulen. De site is niet verbonden aan de gemeenten, VVSG of Lokaal Beslist.</li>
     <li>Ziet u een fout of iets dat hier niet hoort? Of wilt u als raadslid of gemeente niet op deze site staan? Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` of open een issue op <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. Dan pas ik het aan of haal ik het weg.</li></ul></section>
     <h2>Bronnen</h2><ul><li>Video: het YouTube-kanaal van de gemeente.</li>
     <li>Agenda en stemmingen: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Zonder officiële agenda komen de punten uit de opname.</li>
-    <li>Raadsleden: de Vlaamse Mandatendatabank.</li></ul>
+    <li>Raadsleden: de Mandatendatabank.</li>
+    <li>Bron agenda's en stemmingen: Lokaal Beslist; raadsleden: Mandatendatabank (Vlaamse overheid, Agentschap Binnenlands Bestuur), geraadpleegd in 2026.</li></ul>
     <h2>Stappen</h2><ol>
     <li>Transcriptie met faster-whisper large-v3-turbo.</li>
     <li>Sprekersherkenning met sherpa-onnx, zonder namen.</li>
     <li>Een raadslid krijgt pas een naam als de voorzitter hem of haar bij naam het woord geeft, en een tweede aanwijzing dat bevestigt. Daarom heeft maar een klein deel van de spreektijd een naam.</li>
     <li>Gemini en een zinsmodel plaatsen de agendapunten in de opname. Op 44 met de hand aangeduide begintijden zit 89 tot 100% binnen de minuut.</li>
-    <li>Gemini vat elk punt samen. Een citaat verschijnt alleen als het letterlijk in het transcript staat. Namen van wie geen raadslid is, worden verwijderd. Het label aangenomen of verworpen volgt de officiële stemming.</li></ol>
-    <h2>Cijfers</h2><p>${String(st.hours_total).replace(".", ",")} uur opname, ${st.items_total} agendapunten.</p>
+    <li>Gemini vat elk punt samen. Een citaat verschijnt alleen als het letterlijk in het transcript staat. Namen van wie geen raadslid is, worden verwijderd. Het label aangenomen of verworpen volgt de officiële stemming.</li>
+    <li>Samenvattingen, beslissingen en titels worden door Gemini naar het Engels vertaald. Citaten krijgen een vertaling eronder; transcripties blijven in het Nederlands.</li></ol>
+    <h2>Cijfers</h2><p>${String(st.hours_total).replace(".", ",")} uur opname, ${st.items_total} agendapunten teruggevonden in de opname en samengevat.</p>
     <h2>Verdeelde stemmingen</h2>${contestedTable(st)}
     ${REPO_PUBLIC ? `<p class="meta">Details en evaluatie: <a href="${REPO}" rel="noopener">GitHub</a> (Engels).</p>` : ""}`,
   en: st => `<h1>Method</h1>
@@ -331,24 +334,54 @@ const METHOD = {
     <li>Nobody listened back to the recordings. Nobody checked the summaries, quotes, votes or names by hand. I only did a few spot checks.</li>
     <li>The transcripts are verbatim and automatic. They contain recognition errors, misheard names, and what people in the room said about others.</li>
     <li>A summary or quote can misrepresent someone. Before you repeat or share anything, check it against the municipality's own video.</li>
-    <li>I only name council members, the mayor and the aldermen, as public office holders in a public meeting. Citizens and municipal staff are never named.</li>
+    <li>As speakers I only name council members, the mayor and the aldermen, as public office holders in a public meeting. Citizens and municipal staff are never named in the summaries. The verbatim transcript can still hold names said in the room; I remove them as soon as I find them or you ask.</li>
     <li>The names can be wrong too. Which voice belongs to which name is decided automatically and not checked, so a statement can be attached to the wrong person.</li>
     <li>This is an independent, non-commercial project, not an official record. The official sources are the municipality's video and its official decisions and minutes. The site is not affiliated with the municipalities, VVSG or Lokaal Beslist.</li>
     <li>Did you see an error or something that should not be here? Or do you not want to be on this site, as a councillor or a municipality? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` or open an issue on <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. I will fix it or take it down.</li></ul></section>
     <h2>Sources</h2><ul><li>Video: the municipality's YouTube channel.</li>
     <li>Agendas and votes: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Without an official agenda, the items come from the recording.</li>
-    <li>Councillors: the Flemish Mandatendatabank.</li></ul>
+    <li>Councillors: the Mandatendatabank.</li>
+    <li>Source of agendas and votes: Lokaal Beslist; councillors: Mandatendatabank (Flemish government, Agentschap Binnenlands Bestuur), accessed in 2026.</li></ul>
     <h2>Steps</h2><ol>
     <li>Transcription with faster-whisper large-v3-turbo.</li>
     <li>Speaker recognition with sherpa-onnx, without names.</li>
     <li>A councillor only gets a name when the chair gives them the floor by name and a second cue confirms it. That is why only a small share of the speaking time has a name.</li>
     <li>Gemini and a sentence model place the agenda items in the recording. On 44 item starts marked by hand, 89 to 100% are within a minute.</li>
     <li>Gemini summarizes each item. A quote only appears when it is word for word in the transcript. Names of people who are not councillors are removed. The adopted or rejected label follows the official vote.</li>
-    <li>Summaries, decisions and titles are translated into English by Gemini. Quotes and transcripts stay in Dutch.</li></ol>
-    <h2>Numbers</h2><p>${st.hours_total} hours of recording, ${st.items_total} agenda items.</p>
+    <li>Summaries, decisions and titles are translated into English by Gemini. Quotes keep the original Dutch with an English translation below; transcripts stay in Dutch.</li></ol>
+    <h2>Numbers</h2><p>${st.hours_total} hours of recording, ${st.items_total} agenda items found in the recording and summarized.</p>
     <h2>Split votes</h2>${contestedTable(st)}
     ${REPO_PUBLIC ? `<p class="meta">Details and evaluation: <a href="${REPO}" rel="noopener">GitHub</a>.</p>` : ""}`,
 };
+
+const PRIVACY = {
+  nl: `<h1>Privacy</h1>
+    <ul>
+    <li><b>Verantwoordelijke:</b> Nadir Kaan Goker, Leuven, <a href="mailto:${CONTACT}">${CONTACT}</a>.</li>
+    <li><b>Doel:</b> openbare gemeenteraadszittingen leesbaar en doorzoekbaar maken.</li>
+    <li><b>Gegevens:</b> wat er gezegd werd in openbare zittingen die de gemeente zelf online zette, en de namen van gemeenteraadsleden, de burgemeester en de schepenen uit de Mandatendatabank.</li>
+    <li><b>Rechtsgrond:</b> gerechtvaardigd belang (art. 6.1.f AVG). Politieke uitspraken in een openbare zitting heeft de spreker zelf openbaar gemaakt (art. 9.2.e AVG).</li>
+    <li><b>Verwerker:</b> de samenvattingen, vertalingen en de naamcontrole werden gemaakt met de Gemini API van Google. De site zelf stuurt niets naar Google.</li>
+    <li><b>Namen van anderen:</b> namen van burgers of gemeentepersoneel die in de zaal vielen, haal ik uit het transcript zodra ik ze vind of u erom vraagt.</li>
+    <li><b>Geen tracking:</b> geen cookies, geen statistieken, geen advertenties. Uw browser onthoudt alleen uw taalkeuze. De site staat op GitHub Pages; GitHub kan technische logs bijhouden.</li>
+    <li><b>Uw rechten:</b> inzage, verbetering, verwijdering en bezwaar. Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a>; u krijgt binnen een maand antwoord.</li>
+    <li><b>Klacht:</b> bij de <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a>.</li>
+    </ul>`,
+  en: `<h1>Privacy</h1>
+    <ul>
+    <li><b>Controller:</b> Nadir Kaan Goker, Leuven, <a href="mailto:${CONTACT}">${CONTACT}</a>.</li>
+    <li><b>Purpose:</b> making public council meetings readable and searchable.</li>
+    <li><b>Data:</b> what was said in public meetings that the municipality put online itself, and the names of council members, the mayor and the aldermen from the Mandatendatabank.</li>
+    <li><b>Legal basis:</b> legitimate interest (art. 6(1)(f) GDPR). Political statements in a public meeting were made public by the speaker (art. 9(2)(e) GDPR).</li>
+    <li><b>Processor:</b> the summaries, translations and name check were made with Google's Gemini API. The site itself sends nothing to Google.</li>
+    <li><b>Names of others:</b> names of citizens or municipal staff said in the room come out of the transcript as soon as I find them or you ask.</li>
+    <li><b>No tracking:</b> no cookies, no analytics, no ads. Your browser only remembers your language choice. The site is hosted on GitHub Pages; GitHub can keep technical logs.</li>
+    <li><b>Your rights:</b> access, correction, erasure and objection. Mail <a href="mailto:${CONTACT}">${CONTACT}</a>; you get an answer within a month.</li>
+    <li><b>Complaints:</b> to the Belgian <a href="https://www.dataprotectionauthority.be" rel="noopener">Data Protection Authority</a>.</li>
+    </ul>`,
+};
+
+function viewPrivacy() { setTitle("Privacy"); app.innerHTML = `<div class="method">${PRIVACY[LANG]}</div>`; }
 
 async function viewMethod() {
   await loadIndex();

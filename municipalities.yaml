@@ -3,6 +3,8 @@
 # lblod_harvester: 0..3 or null when the municipality is not in any Lokaal Beslist harvester.
 # exclude: video id -> reason, for uploads that must not become a session (duplicates, wrong titles).
 # lblod_label: the skos:prefLabel of the besluit:Bestuurseenheid; lblod_org: label of the Gemeenteraad organ.
+# redact: regex -> replacement, applied after spelling to titles, summaries and transcript: names of people who are not
+#   on the council and private details said in the room (on request or found in review).
 - slug: haacht
   name: Haacht
   province: Vlaams-Brabant
@@ -18,6 +20,12 @@
     haagd: haacht
     Haagse Honderclub: Haachtse Hondenclub
     Haagse honderclub: Haachtse Hondenclub
+    opverleningszone Oost-Vlaams-Baarwijk: hulpverleningszone Oost Vlaams-Brabant
+    Oost-Vlaams-Baarwijk: Oost Vlaams-Brabant
+  redact:
+    "André Matheus\\w*": "[naam]"
+    "Inga Goe[td]h?als": "[naam]"
+    "Marina [Vv]an Steenwegen": "[naam]"
   exclude:
     _gyXSz5yD14: "titled 23/03/2026 but byte-identical to cSppfmeNUN4 (23/02/2026); the speech refers to an info session 'on 26 February' ahead and to 'the councils of December and January', so it is the February session re-uploaded (checked 24 Sep 2026)"
 - slug: tervuren
@@ -29,6 +37,12 @@
   lblod_harvester: 0
   lblod_label: Tervuren
   lblod_org: Gemeenteraad Tervuren
+  spelling:
+    Te Wuren: Tervuren
+    Vossum: Vossem
+  redact:
+    "Van Wauw": "[naam]"
+    "(dat hij dus|die) ziek is geworden": "[weggelaten]"
 - slug: beernem
   name: Beernem
   province: West-Vlaanderen
@@ -38,6 +52,13 @@
   lblod_harvester: 0
   lblod_label: Beernem
   lblod_org: Gemeenteraad Beernem
+  spelling:
+    Wengene: Wingene
+  redact:
+    "Dondt": "[naam]"
+    "Van Leeuwen": "[naam]"
+    "Bischop": "[naam]"
+    "omdat haar mama overleden is, jammer genoeg,": "[weggelaten]"
 - slug: kraainem
   name: Kraainem
   province: Vlaams-Brabant
@@ -47,7 +68,7 @@
   lblod_harvester: 1
   lblod_label: Kraainem
   lblod_org: Gemeenteraad Kraainem
-  note: bilingual sessions (NL and FR on one recording); after V1
+  note: bilingual sessions (NL and FR on one recording); not processed yet
 - slug: leuven
   name: Leuven
   province: Vlaams-Brabant
@@ -57,4 +78,4 @@
   lblod_harvester: null
   lblod_label: Leuven
   lblod_org: Gemeenteraad Leuven
-  note: recordings live on besluitvorming.leuven.be, which did not answer requests from outside the EU on 24 Sep 2026; waits for a media URL that can be fetched from Belgium
+  note: recordings live on besluitvorming.leuven.be behind a webcast service that blocks downloads; waits for the city's permission
