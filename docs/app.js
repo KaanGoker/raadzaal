@@ -6,6 +6,8 @@ const GREY = ["#9a968e", "#7e7a73", "#b4b0a8", "#68655f", "#c8c4bc", "#55524d"];
 const state = {index: null, stats: null, sessions: {}, search: null, docs: null, en: null};
 const CONTACT = "nadirkaangoker@gmail.com";
 const REPO = "https://github.com/KaanGoker/raadzaal";
+const REPO_PUBLIC = false;  // the code links only show once the repository is public
+const codeLink = (label, after = "") => REPO_PUBLIC ? `<a href="${REPO}" rel="noopener">${label}</a>${after}` : "";
 const HOME = "https://kaangoker.dev/";
 const app = document.getElementById("app");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
@@ -51,9 +53,9 @@ const T = {
       "Controleer een citaat of samenvatting in de video voor u het overneemt.",
       "Alleen raadsleden en het college krijgen een naam, nooit burgers of gemeentepersoneel.",
       `Een fout gezien of wilt u iets laten verwijderen? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. Ik pas het aan of haal het weg.`],
-    foot_links: `<a href="#/methode">Methode</a> · <a href="${REPO}" rel="noopener">Code</a> · Een project van <a href="${HOME}">Kaan Goker</a>`,
+    foot_links: `<a href="#/methode">Methode</a> · ${codeLink("Code", " · ")}Een project van <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
-    notice: "Demoproject. Automatisch gemaakt door AI en niet nagekeken. De video van de gemeente is de bron.",
+    notice: `<b>Demoproject.</b> Alles op deze pagina is automatisch gemaakt door AI en door niemand nagekeken: het transcript, de samenvattingen, citaten, stemmingen en namen kunnen fout zijn. Dit is geen officieel verslag. Controleer alles in de video van de gemeente voor u het overneemt. <a href="#/methode">Grenzen van deze site</a>`,
     all: "Alle", minutes_total: m => `${m} minuten in totaal`,
     search_ph: "Bv. fietspad of zwembad", search_btn: "Zoek",
     municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`,
@@ -85,9 +87,9 @@ const T = {
       "Check a quote or summary against the video before you repeat it.",
       "Only council members and the college are named, never citizens or municipal staff.",
       `Seen a mistake, or want something removed? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. I will fix it or take it down.`],
-    foot_links: `<a href="#/methode">Method</a> · <a href="${REPO}" rel="noopener">Code</a> · A project by <a href="${HOME}">Kaan Goker</a>`,
+    foot_links: `<a href="#/methode">Method</a> · ${codeLink("Code", " · ")}A project by <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
-    notice: "Demo project. Made automatically by AI and not checked. The municipality's video is the source.",
+    notice: `<b>Demo project.</b> Everything on this page was made automatically by AI and checked by nobody: the transcript, summaries, quotes, votes and names can be wrong. This is not an official record. Check everything against the municipality's video before you repeat it. <a href="#/methode">Limits of this site</a>`,
     all: "All", minutes_total: m => `${m} minutes in total`,
     search_ph: "E.g. bike path or swimming pool", search_btn: "Search",
     municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`,
@@ -144,7 +146,7 @@ const searchForm = (q = "", autofocus = false) => `<form class="search" role="se
 
 function chrome() {
   document.documentElement.lang = LANG;
-  document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a><a href="${REPO}" rel="noopener">${t("nav_code")}</a><a href="${HOME}">Kaan Goker</a>`
+  document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a>${codeLink(t("nav_code"))}<a href="${HOME}">Kaan Goker</a>`
     + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" onclick="return switchLang()">${t("switch")}</a>`;
   document.getElementById("foot").innerHTML = `<h2>${t("foot_h")}</h2><ul>${t("foot").map(x => `<li>${x}</li>`).join("")}</ul><p class="links">${t("foot_links")}</p>`;
 }
@@ -254,7 +256,7 @@ async function viewSession(id) {
     <div class="legend">${slices.map(x => `<span><i style="background:${x.color}"></i>${esc(x.text)} ${fmt(x.sec)}</span>`).join("")}</div>`;
   const decided = p.notes.decided && p.notes.decided.length ? `<h2>${t("decided")}</h2><ul class="decided">${p.notes.decided.map(d => `<li>${esc(tr(d))}</li>`).join("")}</ul>` : "";
   app.innerHTML = `<h1>${esc(t("council")(p.municipality_name))}<br><span class="muted">${date(p.date)}</span></h1>
-    <p class="meta"><a href="#/g/${p.municipality}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(p.url)}" rel="noopener">${t("video")}</a>${p.lblod_zitting ? ` · <a href="${esc(p.lblod_zitting)}" rel="noopener">${t("official")}</a>` : ""}</p>
+    <p class="meta"><a href="#/g/${p.municipality}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(p.url)}" rel="noopener">${t("video")}</a>${p.lblod_zitting ? ` · <a href="${esc(p.lblod_zitting.replace("/id/zittingen/", "/raadpleegomgeving/zittingen/"))}" rel="noopener">${t("official")}</a>` : ""}</p>
     <p class="notice">${t("notice")}</p>
     ${decided}
     <h2>${t("agenda")}</h2><div class="agenda">${items}</div>
@@ -280,7 +282,7 @@ async function viewSearch(q) {
   // in English an agenda hit shows its English title and summary; a transcript hit stays Dutch
   const textOf = h => { if (!EN() || h.type !== "item") return h.text; const rest = h.text.startsWith(h.title) ? h.text.slice(h.title.length).trim() : ""; return rest ? tr(rest) : tr(h.title); };
   res.innerHTML = hits.length ? `<p class="meta">${t("hits")(all.length, hits.length)}</p><ul class="rows">` + hits.map(h => `<li class="hit"><span class="main">
-      ${h.title ? `<a href="#/s/${h.session}"><strong>${esc(tr(h.title))}</strong></a>` : `<a href="#/s/${h.session}">${t("type_transcript")}</a>`}
+      ${h.title ? `<a class="hit-title" href="#/s/${h.session}">${esc(tr(h.title)).replace(rx, "<mark>$1</mark>")}</a>` : `<a href="#/s/${h.session}">${t("type_transcript")}</a>`}
       <div class="small"${h.type === "item" && EN() ? "" : ' lang="nl"'}>${snippet(textOf(h))}</div></span>
       <span class="side">${esc(h.municipality)}, ${date(h.date)} · <a href="${ytAt(urlOf(h.session), h.start)}" rel="noopener">${fmt(h.start)}</a></span></li>`).join("") + "</ul>" : `<p class="muted">${t("nothing")}</p>`;
 }
@@ -302,7 +304,7 @@ const METHOD = {
     <li>Een samenvatting of citaat kan iemand verkeerd voorstellen. Wilt u iets overnemen of doorvertellen? Controleer het dan eerst in de video van de gemeente.</li>
     <li>Ik noem alleen gemeenteraadsleden en het college (burgemeester en schepenen), als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam.</li>
     <li>Dit is een onafhankelijk, niet-commercieel project en geen officieel verslag. De officiële bronnen zijn de video van de gemeente en haar besluitenlijst en notulen. De site is niet verbonden aan de gemeenten, VVSG of Lokaal Beslist.</li>
-    <li>Ziet u een fout of iets dat hier niet hoort? Of wilt u als raadslid of gemeente niet op deze site staan? Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a> of open een issue op <a href="${REPO}/issues" rel="noopener">GitHub</a>. Dan pas ik het aan of haal ik het weg.</li></ul></section>
+    <li>Ziet u een fout of iets dat hier niet hoort? Of wilt u als raadslid of gemeente niet op deze site staan? Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` of open een issue op <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. Dan pas ik het aan of haal ik het weg.</li></ul></section>
     <h2>Bronnen</h2><ul><li>Video: het YouTube-kanaal van de gemeente.</li>
     <li>Agenda en stemmingen: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Zonder officiële agenda komen de punten uit de opname.</li>
     <li>Raadsleden: de Vlaamse Mandatendatabank.</li></ul>
@@ -314,7 +316,7 @@ const METHOD = {
     <li>Gemini vat elk punt samen. Een citaat verschijnt alleen als het letterlijk in het transcript staat. Namen van wie geen raadslid is, worden verwijderd. Het label aangenomen of verworpen volgt de officiële stemming.</li></ol>
     <h2>Cijfers</h2><p>${String(st.hours_total).replace(".", ",")} uur opname, ${st.items_total} agendapunten.</p>
     <h2>Verdeelde stemmingen</h2>${contestedTable(st)}
-    <p class="meta">Details en evaluatie: <a href="${REPO}" rel="noopener">GitHub</a> (Engels).</p>`,
+    ${REPO_PUBLIC ? `<p class="meta">Details en evaluatie: <a href="${REPO}" rel="noopener">GitHub</a> (Engels).</p>` : ""}`,
   en: st => `<h1>Method</h1>
     <p class="lead">Everything here is made automatically from the municipalities' public recordings. The municipality's video and minutes remain the source.</p>
     <section class="limits"><h2>Limits of this site</h2><ul>
@@ -325,7 +327,7 @@ const METHOD = {
     <li>A summary or quote can misrepresent someone. Before you repeat or share anything, check it against the municipality's own video.</li>
     <li>I only name council members and the college (mayor and aldermen), as public office holders in a public meeting. Citizens and municipal staff are never named.</li>
     <li>This is an independent, non-commercial project, not an official record. The official sources are the municipality's video and its official decisions and minutes. The site is not affiliated with the municipalities, VVSG or Lokaal Beslist.</li>
-    <li>Did you see an error or something that should not be here? Or do you not want to be on this site, as a councillor or a municipality? Mail <a href="mailto:${CONTACT}">${CONTACT}</a> or open an issue on <a href="${REPO}/issues" rel="noopener">GitHub</a>. I will fix it or take it down.</li></ul></section>
+    <li>Did you see an error or something that should not be here? Or do you not want to be on this site, as a councillor or a municipality? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` or open an issue on <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. I will fix it or take it down.</li></ul></section>
     <h2>Sources</h2><ul><li>Video: the municipality's YouTube channel.</li>
     <li>Agendas and votes: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Without an official agenda, the items come from the recording.</li>
     <li>Councillors: the Flemish Mandatendatabank.</li></ul>
@@ -338,7 +340,7 @@ const METHOD = {
     <li>Summaries, decisions and titles are translated into English by Gemini. Quotes and transcripts stay in Dutch.</li></ol>
     <h2>Numbers</h2><p>${st.hours_total} hours of recording, ${st.items_total} agenda items.</p>
     <h2>Split votes</h2>${contestedTable(st)}
-    <p class="meta">Details and evaluation: <a href="${REPO}" rel="noopener">GitHub</a>.</p>`,
+    ${REPO_PUBLIC ? `<p class="meta">Details and evaluation: <a href="${REPO}" rel="noopener">GitHub</a>.</p>` : ""}`,
 };
 
 async function viewMethod() {
