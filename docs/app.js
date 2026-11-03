@@ -44,9 +44,16 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     nav_search: "Zoeken", nav_method: "Methode", nav_code: "Code", switch: "EN", switch_title: "English",
-    foot: `Automatisch gemaakt en niet nagekeken, met fouten. Geen officieel verslag. Controleer alles in de video van de gemeente. Fout of verwijderverzoek: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Methode</a> · <a href="${REPO}" rel="noopener">Code</a> · Een project van <a href="${HOME}">Kaan Goker</a>`,
+    foot_h: "Disclaimer",
+    foot: ["Dit is een demoproject: onafhankelijk en niet-commercieel.",
+      "Alles is automatisch gemaakt door AI en niet nagekeken. Er staan fouten in.",
+      "Dit is geen officieel verslag. De video en de notulen van de gemeente zijn de bron.",
+      "Controleer een citaat of samenvatting in de video voor u het overneemt.",
+      "Alleen raadsleden en het college krijgen een naam, nooit burgers of gemeentepersoneel.",
+      `Een fout gezien of wilt u iets laten verwijderen? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. Ik pas het aan of haal het weg.`],
+    foot_links: `<a href="#/methode">Methode</a> · <a href="${REPO}" rel="noopener">Code</a> · Een project van <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
-    notice: "Automatisch gemaakt door AI en niet nagekeken. De video van de gemeente is de bron.",
+    notice: "Demoproject. Automatisch gemaakt door AI en niet nagekeken. De video van de gemeente is de bron.",
     all: "Alle", minutes_total: m => `${m} minuten in totaal`,
     search_ph: "Bv. fietspad of zwembad", search_btn: "Zoek",
     municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`,
@@ -71,9 +78,16 @@ const T = {
   },
   en: {
     nav_search: "Search", nav_method: "Method", nav_code: "Code", switch: "NL", switch_title: "Nederlands",
-    foot: `Made automatically and not checked, so it contains errors. Not an official record. Check everything against the municipality's video. Mistakes or removal requests: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Method</a> · <a href="${REPO}" rel="noopener">Code</a> · A project by <a href="${HOME}">Kaan Goker</a>`,
+    foot_h: "Disclaimer",
+    foot: ["This is a demo project: independent and non-commercial.",
+      "Everything is made automatically by AI and not checked. It contains errors.",
+      "This is not an official record. The municipality's video and minutes are the source.",
+      "Check a quote or summary against the video before you repeat it.",
+      "Only council members and the college are named, never citizens or municipal staff.",
+      `Seen a mistake, or want something removed? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. I will fix it or take it down.`],
+    foot_links: `<a href="#/methode">Method</a> · <a href="${REPO}" rel="noopener">Code</a> · A project by <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
-    notice: "Made automatically by AI and not checked. The municipality's video is the source.",
+    notice: "Demo project. Made automatically by AI and not checked. The municipality's video is the source.",
     all: "All", minutes_total: m => `${m} minutes in total`,
     search_ph: "E.g. bike path or swimming pool", search_btn: "Search",
     municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`,
@@ -132,7 +146,7 @@ function chrome() {
   document.documentElement.lang = LANG;
   document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a><a href="${REPO}" rel="noopener">${t("nav_code")}</a><a href="${HOME}">Kaan Goker</a>`
     + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" onclick="return switchLang()">${t("switch")}</a>`;
-  document.getElementById("foot").innerHTML = `<p>${t("foot")}</p>`;
+  document.getElementById("foot").innerHTML = `<h2>${t("foot_h")}</h2><ul>${t("foot").map(x => `<li>${x}</li>`).join("")}</ul><p class="links">${t("foot_links")}</p>`;
 }
 
 function switchLang() {
@@ -281,6 +295,7 @@ const METHOD = {
   nl: st => `<h1>Methode</h1>
     <p class="lead">Alles hier is automatisch gemaakt uit de openbare opnames van de gemeenten. De video en de notulen van de gemeente blijven de bron.</p>
     <section class="limits"><h2>Grenzen van deze site</h2><ul>
+    <li>Dit is een demoproject. Het toont wat automatische verwerking met openbare raadsopnames kan, niet een afgewerkte dienst.</li>
     <li>Alles op deze site is automatisch gemaakt. Software en AI-modellen doen de spraakherkenning, de sprekerherkenning, de koppeling aan de agendapunten, de samenvattingen en de vertaling (onder meer Gemini van Google).</li>
     <li>Niemand heeft de opnames herbeluisterd. Niemand heeft de samenvattingen, citaten, stemmingen of namen manueel nagekeken. Ik deed alleen enkele steekproeven.</li>
     <li>De transcripties zijn woordelijk en automatisch. Er staan herkenningsfouten en verkeerd verstane namen in, en ook wat in de zaal over anderen gezegd werd.</li>
@@ -303,6 +318,7 @@ const METHOD = {
   en: st => `<h1>Method</h1>
     <p class="lead">Everything here is made automatically from the municipalities' public recordings. The municipality's video and minutes remain the source.</p>
     <section class="limits"><h2>Limits of this site</h2><ul>
+    <li>This is a demo project. It shows what automatic processing can do with public council recordings; it is not a finished service.</li>
     <li>Everything on this site is made automatically. Software and AI models do the speech recognition, the speaker diarization, the matching to agenda items, the summaries and the translation (Gemini by Google, among others).</li>
     <li>Nobody listened back to the recordings. Nobody checked the summaries, quotes, votes or names by hand. I only did a few spot checks.</li>
     <li>The transcripts are verbatim and automatic. They contain recognition errors, misheard names, and what people in the room said about others.</li>
