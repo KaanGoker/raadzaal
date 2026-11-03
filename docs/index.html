@@ -4,38 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wat zei de raad?</title>
-<meta name="description" content="Drie Vlaamse gemeenteraden, automatisch uitgeschreven en doorzoekbaar: per agendapunt een samenvatting, de stemming, wie sprak hoe lang en de sprong naar de seconde in de video.">
+<meta name="description" content="Drie Vlaamse gemeenteraden, automatisch uitgeschreven en doorzoekbaar: per agendapunt een samenvatting, de stemming, wie hoelang sprak en een link naar het juiste moment in de video. In het Nederlands en het Engels.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#173b5c">
+<meta name="theme-color" content="#fbfaf7">
+<link rel="preload" href="vendor/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="canonical" href="https://kaangoker.github.io/raadzaal/">
+<link rel="alternate" hreflang="nl" href="https://kaangoker.github.io/raadzaal/?lang=nl">
+<link rel="alternate" hreflang="en" href="https://kaangoker.github.io/raadzaal/?lang=en">
 <meta property="og:title" content="Wat zei de raad?">
-<meta property="og:description" content="Drie Vlaamse gemeenteraden, automatisch uitgeschreven en doorzoekbaar: per agendapunt een samenvatting, de stemming, wie sprak hoe lang en de sprong naar de seconde in de video.">
+<meta property="og:description" content="Drie Vlaamse gemeenteraden, automatisch uitgeschreven en doorzoekbaar: per agendapunt een samenvatting, de stemming, wie hoelang sprak en een link naar het juiste moment in de video. In het Nederlands en het Engels.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kaangoker.github.io/raadzaal/">
 <meta property="og:image" content="https://kaangoker.github.io/raadzaal/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="nl_BE">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 <script src="vendor/minisearch-7.1.0.js"></script>
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="#/"><img src="logo.svg" alt="" width="30" height="30">Wat zei de raad?</a>
-  <nav>
-    <a href="#/">Gemeenten</a>
-    <a href="#/zoek">Zoeken</a>
-    <a href="#/methode">Methode</a>
-    <a href="https://github.com/KaanGoker/raadzaal" rel="noopener">Code</a>
-  </nav>
+  <a class="brand" href="#/"><img src="logo.svg" alt="" width="26" height="26">Wat zei de raad?</a>
+  <nav id="nav"><a href="#/zoek">Zoeken</a><a href="#/methode">Methode</a><a href="https://github.com/KaanGoker/raadzaal" rel="noopener">Code</a></nav>
 </header>
-<main id="app" class="wrap"><p class="muted">Laden...</p></main>
-<footer class="foot wrap">
-  <p>Onafhankelijk project, niet van of voor de gemeenten. Transcriptie (Whisper) en samenvattingen (Gemini) zijn automatisch gemaakt met AI en kunnen fouten bevatten; de video en de notulen van de gemeente zijn de bron. Elke passage linkt naar de seconde in die video.</p>
-  <p>Opnames van de gemeenten zelf, agenda's en stemmingen uit <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Een fout of iets dat niet hoort? Mail <a href="mailto:nadirkaangoker@gmail.com">nadirkaangoker@gmail.com</a>, verwijderverzoeken binnen 48 uur. <a href="#/methode">Methode en privacy</a>. Gemaakt door Kaan Goker, <a href="https://github.com/KaanGoker/raadzaal" rel="noopener">broncode</a>.</p>
-</footer>
+<main id="app" class="wrap"></main>
+<footer id="foot" class="foot wrap"><p>Onafhankelijk project. Transcripties en samenvattingen zijn automatisch gemaakt met AI en kunnen fouten bevatten; de video van de gemeente is de bron.</p></footer>
 <script src="app.js"></script>
 </body>
 </html>

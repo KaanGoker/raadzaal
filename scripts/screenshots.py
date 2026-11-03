@@ -26,7 +26,7 @@ def main():
     ASSETS.mkdir(exist_ok=True)
     httpd = serve(0)  # any free port
     port = httpd.server_address[1]
-    base = f"http://127.0.0.1:{port}/index.html"
+    base = f"http://127.0.0.1:{port}/index.html?lang=en"  # the README is in English
     import json
     index = json.loads((DOCS / "data" / "index.json").read_text(encoding="utf-8"))
     sid = sys.argv[1] if len(sys.argv) > 1 else index["sessions"][0]["id"]
@@ -37,10 +37,10 @@ def main():
             pg.goto(base + "#/"); pg.wait_for_timeout(1800)
             pg.screenshot(path=str(ASSETS / f"home-{tag}.png"), full_page=(width == 390))
             pg.goto(base + f"#/s/{sid}"); pg.wait_for_timeout(1500)
-            pg.locator("details.item").first.click(); pg.wait_for_timeout(400)
+            pg.locator("details.item > summary").nth(1).click(); pg.wait_for_timeout(400)
             pg.screenshot(path=str(ASSETS / f"session-{tag}.png"), full_page=(width == 390))
             if width == 1280:
-                pg.goto(base + "#/zoek?q=fietspad"); pg.wait_for_timeout(2500)
+                pg.goto(base + "#/zoek?q=bike%20path"); pg.wait_for_timeout(2500)
                 pg.screenshot(path=str(ASSETS / "search-1280.png"))
                 pg.goto(base + "#/methode"); pg.wait_for_timeout(1200)
                 pg.screenshot(path=str(ASSETS / "method-1280.png"))

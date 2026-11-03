@@ -6,15 +6,15 @@ Wat zei de raad? turns the council recordings of three Flemish municipalities (1
 
 **Built with:** Python 3.12, faster-whisper (large-v3-turbo), sherpa-onnx with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, sentence-transformers (multilingual MiniLM), Gemini 2.5 Flash Lite, SQLite, SPARQL on Lokaal Beslist and the Mandatendatabank, MiniSearch, a static site on GitHub Pages.
 
-**Site:** [kaangoker.github.io/raadzaal](https://kaangoker.github.io/raadzaal/) (Dutch) · **Numbers:** [EVALUATION.md](EVALUATION.md)
+**Site:** [kaangoker.github.io/raadzaal](https://kaangoker.github.io/raadzaal/) (Dutch and English) · **Numbers:** [EVALUATION.md](EVALUATION.md)
 
 ![Session page](assets/session-1280.png)
 
-*Beernem, 26 February 2026: the decisions, who spoke how long, and the agenda with the minute each item starts. Every line of the transcript links to that second in the municipality's video.*
+*Beernem, 26 February 2026, in English: the decisions and the agenda with the minute each item starts. Every line of the transcript links to that second in the municipality's video.*
 
 ## What it does
 
-Flemish municipalities film their public council meetings and put the whole evening online as one video of one to four hours. Almost nobody watches those. This project splits each recording into its agenda items and gives every item a start time, a short neutral summary, the vote, a quote you can click to hear in context, and a search box across every meeting.
+Flemish municipalities film their public council meetings and put the whole evening online as one video of one to four hours. Almost nobody watches those. This project splits each recording into its agenda items and gives every item a start time, a short neutral summary, the vote, a quote you can click to hear in context, and a search box across every meeting. The site reads in Dutch or English: summaries, decisions and agenda titles are translated, quotes keep the original Dutch with a translation next to them, and transcripts stay in Dutch as spoken.
 
 The first three municipalities are Haacht, Tervuren and Beernem: 14 meetings of 2026, 26 hours of audio, 333 agenda items of which 286 are placed on the timeline. Adding another municipality is an entry in `municipalities.yaml` with the YouTube channel, a title pattern and, where it exists, the Lokaal Beslist harvester.
 
@@ -63,6 +63,7 @@ speakers      handover, thanks and self-introduction cues; a direct cue plus a s
 summarise     one Gemini call per meeting, quote, name and placement checks
 names         second pass: anyone in a summary who is not on the council is replaced by a role
 build         docs/data: index, one JSON per meeting, search corpus, stats
+translate     docs/data/en.json: titles, summaries, quotes and decisions in English, keyed by the Dutch text
 report        EVALUATION.md
 ```
 
@@ -106,4 +107,4 @@ Speech recognition makes mistakes, more so with dialect, bad microphones and peo
 
 ## License
 
-The code is MIT.
+The code is MIT. The site ships MiniSearch (MIT) and the Source Serif 4 font (SIL Open Font License 1.1), both in `docs/vendor/` with their licenses.

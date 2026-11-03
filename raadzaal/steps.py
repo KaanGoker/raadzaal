@@ -34,6 +34,9 @@ def run(step: str, con, args) -> int:
         return councils.run(con, args)
     if step == "build":
         return build.run(con, args)
+    if step == "translate":
+        from raadzaal import translate
+        return translate.run(con, args)
     if step == "report":
         return report.run(con, args, align.eval_lines(con))
     if step == "all":

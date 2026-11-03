@@ -4,7 +4,7 @@ import sys
 
 from raadzaal import config, db
 
-STEPS = ["discover", "councils", "agenda", "fetch", "transcribe", "diarise", "regroup", "speakers", "align", "summarise", "names", "build", "report", "all", "status"]
+STEPS = ["discover", "councils", "agenda", "fetch", "transcribe", "diarise", "regroup", "speakers", "align", "summarise", "names", "build", "translate", "report", "all", "status"]
 
 
 def build_parser() -> argparse.ArgumentParser:
