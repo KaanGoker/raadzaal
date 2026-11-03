@@ -64,6 +64,7 @@ summarise     one Gemini call per meeting, quote, name and placement checks
 names         second pass: anyone in a summary who is not on the council is replaced by a role
 build         docs/data: index, one JSON per meeting, search corpus, stats
 translate     docs/data/en.json: titles, summaries, quotes and decisions in English, keyed by the Dutch text
+topics        a questions round split into 2-minute windows, each with its own topic, so "Time per topic" counts what was discussed
 report        EVALUATION.md
 ```
 
@@ -107,4 +108,4 @@ Speech recognition makes mistakes, more so with dialect, bad microphones and peo
 
 ## License
 
-The code is MIT. The site ships MiniSearch (MIT) and the Source Serif 4 font (SIL Open Font License 1.1), both in `docs/vendor/` with their licenses.
+The code is MIT. The site ships MiniSearch (MIT) and the Source Serif 4 and Source Sans 3 fonts (SIL Open Font License 1.1), all in `docs/vendor/` with their licenses.

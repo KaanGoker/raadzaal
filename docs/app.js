@@ -6,6 +6,7 @@ const GREY = ["#9a968e", "#7e7a73", "#b4b0a8", "#68655f", "#c8c4bc", "#55524d"];
 const state = {index: null, stats: null, sessions: {}, search: null, docs: null, en: null};
 const CONTACT = "nadirkaangoker@gmail.com";
 const REPO = "https://github.com/KaanGoker/raadzaal";
+const HOME = "https://kaangoker.dev/";
 const app = document.getElementById("app");
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 const fmt = s => { s = Math.max(0, Math.round(s || 0)); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return h ? `${h}:${String(m).padStart(2, "0")}:${String(x).padStart(2, "0")}` : `${m}:${String(x).padStart(2, "0")}`; };
@@ -14,7 +15,7 @@ const ytAt = (url, s) => `${url}&t=${Math.max(0, Math.floor(s || 0))}s`;
 const colorFor = (spk, i) => spk.party && PARTY_COLORS[spk.party] ? PARTY_COLORS[spk.party] : (spk.name ? "#3d3b38" : GREY[i % GREY.length]);
 const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
 
-/* Language: ?lang= in the address, then the last choice, then the browser. */
+/* Language: ?lang= in the address, then the last choice, then Dutch. */
 const LANGS = ["nl", "en"];
 const store = {get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }};
 let LANG = (() => {
@@ -22,7 +23,7 @@ let LANG = (() => {
   if (LANGS.includes(q)) return q;
   const s = store.get("lang");
   if (LANGS.includes(s)) return s;
-  return (navigator.language || "nl").toLowerCase().startsWith("nl") ? "nl" : "en";
+  return "nl";
 })();
 const EN = () => LANG === "en";
 const tr = t => (EN() && state.en && t && state.en[t]) || t;  // Dutch data line -> English, when a translation exists
@@ -43,11 +44,14 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const T = {
   nl: {
     nav_search: "Zoeken", nav_method: "Methode", nav_code: "Code", switch: "EN", switch_title: "English",
-    foot: `Onafhankelijk project. Transcripties en samenvattingen zijn automatisch gemaakt met AI en kunnen fouten bevatten; de video van de gemeente is de bron. Fout of verwijderverzoek: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Methode</a> · <a href="${REPO}" rel="noopener">Code</a> · Kaan Goker`,
-    lead: "Wat er gezegd en beslist werd in de gemeenteraad, per agendapunt, met een link naar het moment in de video.",
-    search_ph: "Zoek, bv. fietspad of zwembad", search_btn: "Zoek",
-    municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`, no_agenda: "geen officiële agenda",
-    recent: "Recente zittingen", items: n => plural(n, "punt", "punten"),
+    foot: `Automatisch gemaakt en niet nagekeken, met fouten. Geen officieel verslag. Controleer alles in de video van de gemeente. Fout of verwijderverzoek: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Methode</a> · <a href="${REPO}" rel="noopener">Code</a> · Een project van <a href="${HOME}">Kaan Goker</a>`,
+    pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
+    notice: "Automatisch gemaakt door AI en niet nagekeken. De video van de gemeente is de bron.",
+    all: "Alle", minutes_total: m => `${m} minuten in totaal`,
+    search_ph: "Bv. fietspad of zwembad", search_btn: "Zoek",
+    municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`,
+    sessions_w: n => n === 1 ? "zitting" : "zittingen", hours_w: "uur", num: h => String(h).replace(".", ","),
+    items: n => plural(n, "punt", "punten"),
     time_h: "Tijd per onderwerp", no_summaries: "Nog geen samenvattingen.",
     muni_no_agenda: "Geen officiële agenda: de punten komen uit de opname.",
     not_found_session: "Deze zitting bestaat niet (meer).",
@@ -67,11 +71,14 @@ const T = {
   },
   en: {
     nav_search: "Search", nav_method: "Method", nav_code: "Code", switch: "NL", switch_title: "Nederlands",
-    foot: `Independent project. Transcripts and summaries are made automatically with AI and can contain mistakes; the municipality's video is the source. Mistakes or removal requests: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Method</a> · <a href="${REPO}" rel="noopener">Code</a> · Kaan Goker`,
-    lead: "What was said and decided in Flemish municipal councils, per agenda item, with a link to the moment in the video.",
-    search_ph: "Search, e.g. bike path or swimming pool", search_btn: "Search",
-    municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`, no_agenda: "no official agenda",
-    recent: "Recent meetings", items: n => plural(n, "item", "items"),
+    foot: `Made automatically and not checked, so it contains errors. Not an official record. Check everything against the municipality's video. Mistakes or removal requests: <a href="mailto:${CONTACT}">${CONTACT}</a>. <a href="#/methode">Method</a> · <a href="${REPO}" rel="noopener">Code</a> · A project by <a href="${HOME}">Kaan Goker</a>`,
+    pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
+    notice: "Made automatically by AI and not checked. The municipality's video is the source.",
+    all: "All", minutes_total: m => `${m} minutes in total`,
+    search_ph: "E.g. bike path or swimming pool", search_btn: "Search",
+    municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`,
+    sessions_w: n => n === 1 ? "meeting" : "meetings", hours_w: "hours", num: h => String(h),
+    items: n => plural(n, "item", "items"),
     time_h: "Time per topic", no_summaries: "No summaries yet.",
     muni_no_agenda: "No official agenda: the items come from the recording.",
     not_found_session: "This meeting does not exist (anymore).",
@@ -118,11 +125,12 @@ async function loadSearch() {
 const SITE = "Wat zei de raad?";
 const setTitle = s => { document.title = s ? `${s} | ${SITE}` : SITE; };
 const decode = s => { try { return decodeURIComponent(s); } catch (e) { return s; } };
-const searchForm = (q = "", autofocus = false) => `<form class="search" role="search" onsubmit="location.hash='#/zoek?q='+encodeURIComponent(this.q.value);return false;"><input name="q" value="${esc(q)}" placeholder="${esc(t("search_ph"))}" aria-label="${t("search_h")}"${autofocus ? " autofocus" : ""}><button>${t("search_btn")}</button></form>`;
+const ICON_SEARCH = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>`;
+const searchForm = (q = "", autofocus = false) => `<form class="search" role="search" onsubmit="location.hash='#/zoek?q='+encodeURIComponent(this.q.value);return false;"><label>${ICON_SEARCH}<input name="q" type="search" value="${esc(q)}" placeholder="${esc(t("search_ph"))}" aria-label="${t("search_h")}"${autofocus ? " autofocus" : ""}></label><button>${t("search_btn")}</button></form>`;
 
 function chrome() {
   document.documentElement.lang = LANG;
-  document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a><a href="${REPO}" rel="noopener">${t("nav_code")}</a>`
+  document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a><a href="${REPO}" rel="noopener">${t("nav_code")}</a><a href="${HOME}">Kaan Goker</a>`
     + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" onclick="return switchLang()">${t("switch")}</a>`;
   document.getElementById("foot").innerHTML = `<p>${t("foot")}</p>`;
 }
@@ -156,18 +164,29 @@ const sessionRow = (s, withName) => `<li><span class="main"><a href="#/s/${s.id}
 
 async function viewHome() {
   const idx = await loadIndex(), st = state.stats;
-  const munis = idx.municipalities.map(m => `<li><span class="main"><a href="#/g/${m.slug}">${esc(m.name)}</a></span>
-      <span class="side">${t("sessions")(m.sessions)} · ${t("hours_n")(m.hours)}${m.has_agenda ? "" : ` · ${t("no_agenda")}`}</span></li>`).join("");
-  app.innerHTML = `<h1>Wat zei de raad?</h1>${EN() ? `<p class="sub">What did the council say?</p>` : ""}
-    <p class="lead">${t("lead")}</p>
-    ${searchForm()}
-    <h2>${t("municipalities")}</h2><ul class="rows">${munis}</ul>
-    <h2>${t("recent")}</h2><ul class="rows">${idx.sessions.slice(0, 6).map(s => sessionRow(s, true)).join("")}</ul>
-    <h2>${t("time_h")}</h2>${topicBars(st.topic_minutes)}`;
+  const munis = idx.municipalities.map(m => `<li><a href="#/g/${m.slug}"><span><span class="name">${esc(m.name)}</span><span class="prov">${esc(m.province || "")}</span></span>
+      <span class="nums"><span><b>${m.sessions}</b>${t("sessions_w")(m.sessions)}</span><span><b>${t("num")(m.hours)}</b>${t("hours_w")}</span></span></a></li>`).join("");
+  app.innerHTML = `<section class="hero"><h1>Wat zei de raad?</h1>${EN() ? `<p class="sub">What did the council say?</p>` : `<p class="sub">Vlaamse gemeenteraden, uitgeschreven en doorzoekbaar.</p>`}
+    <ul class="pillars">${t("pillars").map(([h, x]) => `<li><b>${h}</b><span>${x}</span></li>`).join("")}</ul>
+    ${searchForm()}</section>
+    <h2>${t("municipalities")}</h2><ul class="cards">${munis}</ul>
+    <h2>${t("time_h")}</h2><div class="panel" id="topics"></div>`;
+  topicPanel(idx, st, state.topicMuni || "");
+}
+
+function topicPanel(idx, st, slug) {
+  const by = st.topic_minutes_by_municipality;
+  if (!by || !by[slug]) slug = "";
+  state.topicMuni = slug;
+  const data = slug ? by[slug] : st.topic_minutes;
+  const total = Object.values(data || {}).reduce((x, v) => x + v, 0);
+  const chips = by ? `<div class="chips" role="group" aria-label="${esc(t("municipalities"))}">${[["", t("all")], ...idx.municipalities.map(m => [m.slug, m.name])].map(([k, n]) =>
+      `<button type="button" aria-pressed="${k === slug}" onclick="topicPanel(state.index, state.stats, '${k}')">${esc(n)}</button>`).join("")}</div>` : "";
+  document.getElementById("topics").innerHTML = chips + topicBars(data) + (total ? `<p class="meta">${t("minutes_total")(total)}</p>` : "");
 }
 
 function topicBars(topics) {
-  const entries = Object.entries(topics || {});
+  const entries = Object.entries(topics || {}).filter(e => e[1] > 0).sort((x, y) => y[1] - x[1]);
   if (!entries.length) return `<p class="muted">${t("no_summaries")}</p>`;
   const max = Math.max(...entries.map(e => e[1])) || 1;
   return `<div class="topics">${entries.map(([k, v]) => `<span class="label">${esc(topic(k))}</span>
@@ -222,8 +241,9 @@ async function viewSession(id) {
   const decided = p.notes.decided && p.notes.decided.length ? `<h2>${t("decided")}</h2><ul class="decided">${p.notes.decided.map(d => `<li>${esc(tr(d))}</li>`).join("")}</ul>` : "";
   app.innerHTML = `<h1>${esc(t("council")(p.municipality_name))}<br><span class="muted">${date(p.date)}</span></h1>
     <p class="meta"><a href="#/g/${p.municipality}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(p.url)}" rel="noopener">${t("video")}</a>${p.lblod_zitting ? ` · <a href="${esc(p.lblod_zitting)}" rel="noopener">${t("official")}</a>` : ""}</p>
+    <p class="notice">${t("notice")}</p>
     ${decided}
-    <h2>${t("agenda")}</h2>${items}
+    <h2>${t("agenda")}</h2><div class="agenda">${items}</div>
     <h2>${t("who_h")}</h2>${bar}<p class="meta">${t("who_note")(Math.round(100 * p.attributed_share))}</p>`;
 }
 
@@ -260,6 +280,14 @@ function contestedTable(st) {
 const METHOD = {
   nl: st => `<h1>Methode</h1>
     <p class="lead">Alles hier is automatisch gemaakt uit de openbare opnames van de gemeenten. De video en de notulen van de gemeente blijven de bron.</p>
+    <section class="limits"><h2>Grenzen van deze site</h2><ul>
+    <li>Alles op deze site is automatisch gemaakt. Software en AI-modellen doen de spraakherkenning, de sprekerherkenning, de koppeling aan de agendapunten, de samenvattingen en de vertaling (onder meer Gemini van Google).</li>
+    <li>Niemand heeft de opnames herbeluisterd. Niemand heeft de samenvattingen, citaten, stemmingen of namen manueel nagekeken. Ik deed alleen enkele steekproeven.</li>
+    <li>De transcripties zijn woordelijk en automatisch. Er staan herkenningsfouten en verkeerd verstane namen in, en ook wat in de zaal over anderen gezegd werd.</li>
+    <li>Een samenvatting of citaat kan iemand verkeerd voorstellen. Wilt u iets overnemen of doorvertellen? Controleer het dan eerst in de video van de gemeente.</li>
+    <li>Ik noem alleen gemeenteraadsleden en het college (burgemeester en schepenen), als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam.</li>
+    <li>Dit is een onafhankelijk, niet-commercieel project en geen officieel verslag. De officiële bronnen zijn de video van de gemeente en haar besluitenlijst en notulen. De site is niet verbonden aan de gemeenten, VVSG of Lokaal Beslist.</li>
+    <li>Ziet u een fout of iets dat hier niet hoort? Of wilt u als raadslid of gemeente niet op deze site staan? Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a> of open een issue op <a href="${REPO}/issues" rel="noopener">GitHub</a>. Dan pas ik het aan of haal ik het weg.</li></ul></section>
     <h2>Bronnen</h2><ul><li>Video: het YouTube-kanaal van de gemeente.</li>
     <li>Agenda en stemmingen: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Zonder officiële agenda komen de punten uit de opname.</li>
     <li>Raadsleden: de Vlaamse Mandatendatabank.</li></ul>
@@ -269,12 +297,19 @@ const METHOD = {
     <li>Een raadslid krijgt pas een naam als de voorzitter hem of haar bij naam het woord geeft, en een tweede aanwijzing dat bevestigt. Daarom heeft maar een klein deel van de spreektijd een naam.</li>
     <li>Gemini en een zinsmodel plaatsen de agendapunten in de opname. Op 44 met de hand aangeduide begintijden zit 89 tot 100% binnen de minuut.</li>
     <li>Gemini vat elk punt samen. Een citaat verschijnt alleen als het letterlijk in het transcript staat. Namen van wie geen raadslid is, worden verwijderd. Het label aangenomen of verworpen volgt de officiële stemming.</li></ol>
-    <h2>Cijfers</h2><p>${st.hours_total} uur opname, ${st.items_total} agendapunten.</p>
+    <h2>Cijfers</h2><p>${String(st.hours_total).replace(".", ",")} uur opname, ${st.items_total} agendapunten.</p>
     <h2>Verdeelde stemmingen</h2>${contestedTable(st)}
-    <h2>Fouten en verwijdering</h2><p>Spraakherkenning maakt fouten. Een fout gezien, of een naam of persoonlijk detail dat weg moet? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. Verwijderverzoeken worden binnen 48 uur behandeld.</p>
     <p class="meta">Details en evaluatie: <a href="${REPO}" rel="noopener">GitHub</a> (Engels).</p>`,
   en: st => `<h1>Method</h1>
     <p class="lead">Everything here is made automatically from the municipalities' public recordings. The municipality's video and minutes remain the source.</p>
+    <section class="limits"><h2>Limits of this site</h2><ul>
+    <li>Everything on this site is made automatically. Software and AI models do the speech recognition, the speaker diarization, the matching to agenda items, the summaries and the translation (Gemini by Google, among others).</li>
+    <li>Nobody listened back to the recordings. Nobody checked the summaries, quotes, votes or names by hand. I only did a few spot checks.</li>
+    <li>The transcripts are verbatim and automatic. They contain recognition errors, misheard names, and what people in the room said about others.</li>
+    <li>A summary or quote can misrepresent someone. Before you repeat or share anything, check it against the municipality's own video.</li>
+    <li>I only name council members and the college (mayor and aldermen), as public office holders in a public meeting. Citizens and municipal staff are never named.</li>
+    <li>This is an independent, non-commercial project, not an official record. The official sources are the municipality's video and its official decisions and minutes. The site is not affiliated with the municipalities, VVSG or Lokaal Beslist.</li>
+    <li>Did you see an error or something that should not be here? Or do you not want to be on this site, as a councillor or a municipality? Mail <a href="mailto:${CONTACT}">${CONTACT}</a> or open an issue on <a href="${REPO}/issues" rel="noopener">GitHub</a>. I will fix it or take it down.</li></ul></section>
     <h2>Sources</h2><ul><li>Video: the municipality's YouTube channel.</li>
     <li>Agendas and votes: <a href="https://lokaalbeslist.vlaanderen.be" rel="noopener">Lokaal Beslist</a>. Without an official agenda, the items come from the recording.</li>
     <li>Councillors: the Flemish Mandatendatabank.</li></ul>
@@ -287,7 +322,6 @@ const METHOD = {
     <li>Summaries, decisions and titles are translated into English by Gemini. Quotes and transcripts stay in Dutch.</li></ol>
     <h2>Numbers</h2><p>${st.hours_total} hours of recording, ${st.items_total} agenda items.</p>
     <h2>Split votes</h2>${contestedTable(st)}
-    <h2>Mistakes and removal</h2><p>Speech recognition makes mistakes. Found one, or a name or personal detail that should go? Email <a href="mailto:${CONTACT}">${CONTACT}</a>. Removal requests are handled within 48 hours.</p>
     <p class="meta">Details and evaluation: <a href="${REPO}" rel="noopener">GitHub</a>.</p>`,
 };
 

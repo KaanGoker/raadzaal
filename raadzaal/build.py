@@ -4,7 +4,7 @@ import re
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from raadzaal import config, db, diarise, speakers
+from raadzaal import config, db, diarise, speakers, topics
 from raadzaal.summarise import RAISED_RE
 
 CHUNK_S = 30.0
@@ -169,8 +169,15 @@ def search_docs(payloads: list[dict]) -> list[dict]:
     return docs
 
 
-def stats(payloads: list[dict]) -> dict:
+def _ranked(minutes: dict) -> dict:
+    return {k: round(v) for k, v in sorted(minutes.items(), key=lambda kv: -kv[1])}
+
+
+def stats(payloads: list[dict], windows: dict[int, list[dict]] | None = None) -> dict:
+    """`windows` holds the per-window topics of the items topics.py split up; those items count by their windows."""
+    windows = windows or {}
     topic_min = defaultdict(float)
+    topic_by_muni = defaultdict(lambda: defaultdict(float))
     muni = defaultdict(lambda: {"sessions": 0, "hours": 0.0, "items": 0, "summarised": 0, "named_seconds": 0.0, "total_seconds": 0.0})
     contested, questions_s, total_span_s = [], 0.0, 0.0
     for p in payloads:
@@ -188,7 +195,13 @@ def stats(payloads: list[dict]) -> dict:
             total_span_s += dur
             if a["summary"]:
                 mm["summarised"] += 1
-                topic_min[a["summary"]["topic"]] += dur / 60
+                if a["id"] in windows:
+                    split = topics.minutes(a["start"], a["end"] or a["start"], windows[a["id"]], a["summary"]["topic"])
+                else:
+                    split = {a["summary"]["topic"]: dur / 60}
+                for t, v in split.items():
+                    topic_min[t] += v
+                    topic_by_muni[p["municipality"]][t] += v
             if any(w in a["title"].lower() for w in ("vraag", "interpellatie", "voorstel", "vragen")):
                 questions_s += dur
         for s in p["speakers"]:
@@ -199,7 +212,8 @@ def stats(payloads: list[dict]) -> dict:
     for slug, mm in muni.items():
         out_m[slug] = {"sessions": mm["sessions"], "hours": round(mm["hours"], 1), "items": mm["items"], "summarised": mm["summarised"],
                        "attributed_share": round(mm["named_seconds"] / mm["total_seconds"], 3) if mm["total_seconds"] else 0.0}
-    return {"topic_minutes": {k: round(v) for k, v in sorted(topic_min.items(), key=lambda kv: -kv[1])},
+    return {"topic_minutes": _ranked(topic_min),
+            "topic_minutes_by_municipality": {slug: _ranked(tm) for slug, tm in sorted(topic_by_muni.items())},
             "municipalities": out_m, "contested": sorted(contested, key=lambda c: -c["votes"]["tegen"])[:30],
             "questions_share": round(questions_s / total_span_s, 3) if total_span_s else 0.0,
             "hours_total": round(sum(mm["hours"] for mm in out_m.values()), 1),
@@ -232,7 +246,7 @@ def write(con) -> dict:
                            "decided": p["notes"]["decided"][:2]} for p in sorted(payloads, key=lambda p: p["date"], reverse=True)]}
     (config.DOCS_DATA / "index.json").write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
     (config.DOCS_DATA / "search.json").write_text(json.dumps(search_docs(payloads), ensure_ascii=False), encoding="utf-8")
-    st = stats(payloads)
+    st = stats(payloads, topics.load(con))
     (config.DOCS_DATA / "stats.json").write_text(json.dumps(st, ensure_ascii=False), encoding="utf-8")
     for s in sessions:
         if db.status_index(s["status"]) >= db.status_index("summarised"):

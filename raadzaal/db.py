@@ -6,7 +6,7 @@ from pathlib import Path
 
 from raadzaal import config
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS municipalities (
@@ -42,6 +42,9 @@ CREATE TABLE IF NOT EXISTS summaries (
 CREATE TABLE IF NOT EXISTS session_notes (
   session_id TEXT PRIMARY KEY, model TEXT, content_hash TEXT NOT NULL, decided TEXT,
   created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS topic_windows (
+  session_id TEXT NOT NULL, item_id INTEGER NOT NULL, start REAL NOT NULL, end REAL NOT NULL, topic TEXT NOT NULL,
+  PRIMARY KEY(item_id, start));
 CREATE TABLE IF NOT EXISTS runs (
   id INTEGER PRIMARY KEY AUTOINCREMENT, step TEXT NOT NULL, session_id TEXT, started_at TEXT NOT NULL,
   finished_at TEXT, ok INTEGER, message TEXT);
