@@ -6,7 +6,7 @@ Wat zei de raad? turns the council recordings of three Flemish municipalities (1
 
 **Built with:** Python 3.12, faster-whisper (large-v3-turbo), sherpa-onnx with pyannote segmentation 3.0 and 3D-Speaker ERes2Net, sentence-transformers (multilingual MiniLM), Gemini 2.5 Flash Lite, SQLite, SPARQL on Lokaal Beslist and the Mandatendatabank, MiniSearch, a static site on GitHub Pages.
 
-**Site:** [kaangoker.github.io/raadzaal](https://kaangoker.github.io/raadzaal/) (Dutch and English) · **Numbers:** [EVALUATION.md](EVALUATION.md)
+**Site:** [kaangoker.dev/raadzaal](https://kaangoker.dev/raadzaal/) (Dutch and English) · **Numbers:** [EVALUATION.md](EVALUATION.md)
 
 ![Session page](assets/session-1280.png)
 
