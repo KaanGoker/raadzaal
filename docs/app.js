@@ -51,11 +51,11 @@ const T = {
       "Alles is automatisch gemaakt door AI en niet nagekeken. Er staan fouten in.",
       "Dit is geen officieel verslag. De video en de notulen van de gemeente zijn de bron.",
       "Controleer een citaat of samenvatting in de video voor u het overneemt.",
-      "Alleen raadsleden en het college krijgen een naam, nooit burgers of gemeentepersoneel.",
+      "Alleen gemeenteraadsleden, de burgemeester en de schepenen krijgen een naam, nooit burgers of gemeentepersoneel. Ook die namen kunnen fout zijn.",
       `Een fout gezien of wilt u iets laten verwijderen? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. Ik pas het aan of haal het weg.`],
     foot_links: `<a href="#/methode">Methode</a> · ${codeLink("Code", " · ")}Een project van <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Gezegd", "Het volledige transcript van elke zitting."], ["Beslist", "Per agendapunt een samenvatting en de stemming."], ["Bekeken", "Elke regel springt naar dat moment in de video."]],
-    notice: `<b>Demoproject.</b> Alles op deze pagina is automatisch gemaakt door AI en door niemand nagekeken: het transcript, de samenvattingen, citaten, stemmingen en namen kunnen fout zijn. Dit is geen officieel verslag. Controleer alles in de video van de gemeente voor u het overneemt. <a href="#/methode">Grenzen van deze site</a>`,
+    notice: `<b>Demoproject.</b> Alles op deze site is automatisch gemaakt door AI en door niemand nagekeken: transcripten, samenvattingen, citaten, stemmingen en ook de namen van sprekers kunnen fout zijn. Dit is geen officieel verslag. Controleer alles in de video van de gemeente voor u het overneemt. <a href="#/methode">Grenzen van deze site</a>`,
     all: "Alle", minutes_total: m => `${m} minuten in totaal`,
     search_ph: "Bv. fietspad of zwembad", search_btn: "Zoek",
     municipalities: "Gemeenten", sessions: n => plural(n, "zitting", "zittingen"), hours_n: h => `${String(h).replace(".", ",")} uur`,
@@ -85,11 +85,11 @@ const T = {
       "Everything is made automatically by AI and not checked. It contains errors.",
       "This is not an official record. The municipality's video and minutes are the source.",
       "Check a quote or summary against the video before you repeat it.",
-      "Only council members and the college are named, never citizens or municipal staff.",
+      "Only council members, the mayor and the aldermen are named, never citizens or municipal staff. Those names can be wrong too.",
       `Seen a mistake, or want something removed? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>. I will fix it or take it down.`],
     foot_links: `<a href="#/methode">Method</a> · ${codeLink("Code", " · ")}A project by <a href="${HOME}">Kaan Goker</a>`,
     pillars: [["Said", "The full transcript of every meeting."], ["Decided", "A summary and the vote for each agenda item."], ["Watched", "Every line jumps to that moment in the video."]],
-    notice: `<b>Demo project.</b> Everything on this page was made automatically by AI and checked by nobody: the transcript, summaries, quotes, votes and names can be wrong. This is not an official record. Check everything against the municipality's video before you repeat it. <a href="#/methode">Limits of this site</a>`,
+    notice: `<b>Demo project.</b> Everything on this site was made automatically by AI and checked by nobody: transcripts, summaries, quotes, votes and even the speakers' names can be wrong. This is not an official record. Check everything against the municipality's video before you repeat it. <a href="#/methode">Limits of this site</a>`,
     all: "All", minutes_total: m => `${m} minutes in total`,
     search_ph: "E.g. bike path or swimming pool", search_btn: "Search",
     municipalities: "Municipalities", sessions: n => plural(n, "meeting", "meetings"), hours_n: h => `${h} hours`,
@@ -148,6 +148,7 @@ function chrome() {
   document.documentElement.lang = LANG;
   document.getElementById("nav").innerHTML = `<a href="#/zoek">${t("nav_search")}</a><a href="#/methode">${t("nav_method")}</a>${codeLink(t("nav_code"))}<a href="${HOME}">Kaan Goker</a>`
     + `<a href="?lang=${EN() ? "nl" : "en"}${esc(location.hash)}" class="lang" lang="${EN() ? "nl" : "en"}" title="${esc(t("switch_title"))}" onclick="return switchLang()">${t("switch")}</a>`;
+  document.getElementById("banner").innerHTML = `<p class="notice" role="note">${t("notice")}</p>`;
   document.getElementById("foot").innerHTML = `<h2>${t("foot_h")}</h2><ul>${t("foot").map(x => `<li>${x}</li>`).join("")}</ul><p class="links">${t("foot_links")}</p>`;
 }
 
@@ -257,7 +258,6 @@ async function viewSession(id) {
   const decided = p.notes.decided && p.notes.decided.length ? `<h2>${t("decided")}</h2><ul class="decided">${p.notes.decided.map(d => `<li>${esc(tr(d))}</li>`).join("")}</ul>` : "";
   app.innerHTML = `<h1>${esc(t("council")(p.municipality_name))}<br><span class="muted">${date(p.date)}</span></h1>
     <p class="meta"><a href="#/g/${p.municipality}">${esc(p.municipality_name)}</a> · ${hours(p.duration_s)} · <a href="${esc(p.url)}" rel="noopener">${t("video")}</a>${p.lblod_zitting ? ` · <a href="${esc(p.lblod_zitting.replace("/id/zittingen/", "/raadpleegomgeving/zittingen/"))}" rel="noopener">${t("official")}</a>` : ""}</p>
-    <p class="notice">${t("notice")}</p>
     ${decided}
     <h2>${t("agenda")}</h2><div class="agenda">${items}</div>
     <h2>${t("who_h")}</h2>${bar}<p class="meta">${t("who_note")(Math.round(100 * p.attributed_share))}</p>`;
@@ -302,7 +302,8 @@ const METHOD = {
     <li>Niemand heeft de opnames herbeluisterd. Niemand heeft de samenvattingen, citaten, stemmingen of namen manueel nagekeken. Ik deed alleen enkele steekproeven.</li>
     <li>De transcripties zijn woordelijk en automatisch. Er staan herkenningsfouten en verkeerd verstane namen in, en ook wat in de zaal over anderen gezegd werd.</li>
     <li>Een samenvatting of citaat kan iemand verkeerd voorstellen. Wilt u iets overnemen of doorvertellen? Controleer het dan eerst in de video van de gemeente.</li>
-    <li>Ik noem alleen gemeenteraadsleden en het college (burgemeester en schepenen), als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam.</li>
+    <li>Ik noem alleen gemeenteraadsleden, de burgemeester en de schepenen, als publieke mandatarissen in een openbare zitting. Burgers en gemeentepersoneel krijgen nooit een naam.</li>
+    <li>Ook de namen kunnen fout zijn. Welke stem bij welke naam hoort, wordt automatisch bepaald en niet nagekeken. Een uitspraak kan dus bij de verkeerde persoon staan.</li>
     <li>Dit is een onafhankelijk, niet-commercieel project en geen officieel verslag. De officiële bronnen zijn de video van de gemeente en haar besluitenlijst en notulen. De site is niet verbonden aan de gemeenten, VVSG of Lokaal Beslist.</li>
     <li>Ziet u een fout of iets dat hier niet hoort? Of wilt u als raadslid of gemeente niet op deze site staan? Mail naar <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` of open een issue op <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. Dan pas ik het aan of haal ik het weg.</li></ul></section>
     <h2>Bronnen</h2><ul><li>Video: het YouTube-kanaal van de gemeente.</li>
@@ -325,7 +326,8 @@ const METHOD = {
     <li>Nobody listened back to the recordings. Nobody checked the summaries, quotes, votes or names by hand. I only did a few spot checks.</li>
     <li>The transcripts are verbatim and automatic. They contain recognition errors, misheard names, and what people in the room said about others.</li>
     <li>A summary or quote can misrepresent someone. Before you repeat or share anything, check it against the municipality's own video.</li>
-    <li>I only name council members and the college (mayor and aldermen), as public office holders in a public meeting. Citizens and municipal staff are never named.</li>
+    <li>I only name council members, the mayor and the aldermen, as public office holders in a public meeting. Citizens and municipal staff are never named.</li>
+    <li>The names can be wrong too. Which voice belongs to which name is decided automatically and not checked, so a statement can be attached to the wrong person.</li>
     <li>This is an independent, non-commercial project, not an official record. The official sources are the municipality's video and its official decisions and minutes. The site is not affiliated with the municipalities, VVSG or Lokaal Beslist.</li>
     <li>Did you see an error or something that should not be here? Or do you not want to be on this site, as a councillor or a municipality? Mail <a href="mailto:${CONTACT}">${CONTACT}</a>${REPO_PUBLIC ? ` or open an issue on <a href="${REPO}/issues" rel="noopener">GitHub</a>` : ""}. I will fix it or take it down.</li></ul></section>
     <h2>Sources</h2><ul><li>Video: the municipality's YouTube channel.</li>

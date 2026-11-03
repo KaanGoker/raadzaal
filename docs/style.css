@@ -90,6 +90,7 @@ main > .search button { background: var(--navy); color: var(--on-navy); }
 
 /* session page */
 .notice { background: var(--warn-bg); border: 1px solid var(--warn-line); border-left: 4px solid var(--gold); border-radius: 10px; padding: 12px 16px; font-size: 15px; line-height: 1.55; margin: 18px 0 0; }
+#banner .notice { margin: 16px 0 0; }
 .decided { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--navy); border-radius: var(--radius); padding: 14px 18px 14px 36px; margin: 0; box-shadow: var(--shadow); }
 .decided li { margin: 4px 0; }
 .agenda { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
